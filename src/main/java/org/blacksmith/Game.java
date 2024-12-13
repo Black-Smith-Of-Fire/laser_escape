@@ -9,6 +9,8 @@ import java.awt.event.MouseMotionListener;
 public class Game extends JFrame implements MouseMotionListener {
 
     Image hero;
+    int x = 0;
+    int y = 0;
 
     Game(){
 
@@ -26,7 +28,8 @@ public class Game extends JFrame implements MouseMotionListener {
 
     public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(hero,20,20,null);
+        g2d.drawImage(hero,x,y,null);
+        repaint();
     }
 
     @Override
@@ -38,5 +41,7 @@ public class Game extends JFrame implements MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
         System.out.println("You have moved X : " + e.getX());
         System.out.println("And for YYYYY : " + e.getY());
+        x = e.getX();
+        y = e.getY();
     }
 }
