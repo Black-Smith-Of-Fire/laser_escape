@@ -27,9 +27,10 @@ public class Game extends JFrame implements MouseMotionListener {
     }
 
     public void paint(Graphics g){
+        super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(hero,x,y,null);
-        repaint();
+//        repaint();
     }
 
     @Override
@@ -43,5 +44,6 @@ public class Game extends JFrame implements MouseMotionListener {
         System.out.println("And for YYYYY : " + e.getY());
         x = e.getX();
         y = e.getY();
+        repaint();
     }
 }
