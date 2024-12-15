@@ -6,45 +6,57 @@ import java.awt.event.*;
 
 public class Game extends JFrame implements MouseMotionListener, ActionListener {
 
-    Image hero;
     Image enemy;
     int x = 0;
     int y = 0;
-    int velX = 0;
-    int velY = 0;
-    int width;
-    int height;
+    int velX;
+    int velY;
+    double width;
+    double height;
     Timer timer;
 
-    Game(){
+    Hero hero;
 
-        hero = new ImageIcon("characters/hero/happy_hero.png").getImage();
-        enemy = new ImageIcon("characters/enemy/ball_obstacle.png").getImage();
+    Game(){
+        hero = new Hero(x,y);
+//        enemy = new ImageIcon("characters/enemy/ball_obstacle.png").getImage();
 
         timer = new Timer(10,this);
         timer.start();
 
         JPanel panel = new JPanel();
         panel.addMouseMotionListener(this);
-        add(panel);
-        pack();
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Escape the lasers");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-        width = getWidth();
-        height = getHeight();
+        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        add(panel);
+        pack();
 
 
         setVisible(true);
+
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle bounds = env.getMaximumWindowBounds();
+
+        /* code that may be helpful
+        "GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+Rectangle bounds = env.getMaximumWindowBounds();
+System.out.println("Screen Bounds: " + bounds );
+        * */
+        width = 1740; // TODO : Remove this hard coded value, and get the frame's actual width
+        height = 930;
     }
 
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(hero,x,y,null);
-        g2d.drawImage(enemy,velX,velY,null);
-//        repaint();
+        g2d.drawImage(hero.happy , hero.x, hero.y,null);
+//        g2d.drawImage(enemy,velX,velY,null);
+//        if (collision()) {
+//            g2d.drawImage(hero,0,0,null);
+//            repaint();
+//        }
     }
 
     @Override
@@ -54,40 +66,34 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        x = e.getX();
-        y = e.getY();
-
-        System.out.println("The height of frame is : " + height);
-
-        System.out.println("The width of frame is : " + width);
-
-//        if (x == width) {
-//        if (x == width) {
-//            velX =
-//            velX =
+//        if (!collision()) {
+//            x = e.getX();
+//            y = e.getY();
 //        }
-//
-//        if (y == height) {
-//            velY = 0;
-//        }
-        repaint();
+
+//        repaint();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        velX ++;
-        velY ++;
-        collision();
+        if (!collision()) {
+            hero.y += 3;
+        }
+
+//        hero.y += velY;
         repaint();
     }
 
-    public void collision(){
-        if(x == velX){
-            System.out.println("Collision at X :" + velX);
+    public boolean collision(){
+        if(hero.y >= height ){
+            System.out.println("collided at X " + width);
+            return true;
         }
 
-        if(y == velY){
-            System.out.println("Collision at X :" + velY);
-        }
+//        if(y == velY){
+//            System.out.println("collided at Y " + y);
+//            return true;
+//        }
+        return false;
     }
 }
