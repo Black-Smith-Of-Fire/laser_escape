@@ -2,19 +2,27 @@ package org.blacksmith;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
-public class Game extends JFrame implements MouseMotionListener {
+public class Game extends JFrame implements MouseMotionListener, ActionListener {
 
     Image hero;
+    Image enemy;
     int x = 0;
     int y = 0;
+    int velX = 0;
+    int velY = 0;
+    int width;
+    int height;
+    Timer timer;
 
     Game(){
 
         hero = new ImageIcon("src/d'blacksmith.png").getImage();
+        enemy = new ImageIcon("src/Moi_certificate.png").getImage();
+
+        timer = new Timer(10,this);
+        timer.start();
 
         JPanel panel = new JPanel();
         panel.addMouseMotionListener(this);
@@ -23,6 +31,11 @@ public class Game extends JFrame implements MouseMotionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Escape the lasers");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        width = getWidth();
+        height = getHeight();
+
+
         setVisible(true);
     }
 
@@ -30,6 +43,7 @@ public class Game extends JFrame implements MouseMotionListener {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(hero,x,y,null);
+        g2d.drawImage(enemy,velX,velY,null);
 //        repaint();
     }
 
@@ -40,10 +54,29 @@ public class Game extends JFrame implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        System.out.println("You have moved X : " + e.getX());
-        System.out.println("And for YYYYY : " + e.getY());
         x = e.getX();
         y = e.getY();
+
+        System.out.println("The height of frame is : " + height);
+
+        System.out.println("The width of frame is : " + width);
+
+//        if (x == width) {
+//        if (x == width) {
+//            velX =
+//            velX =
+//        }
+//
+//        if (y == height) {
+//            velY = 0;
+//        }
+        repaint();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        velX ++;
+        velY ++;
         repaint();
     }
 }
