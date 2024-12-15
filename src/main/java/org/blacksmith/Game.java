@@ -6,23 +6,27 @@ import java.awt.event.*;
 
 public class Game extends JFrame implements MouseMotionListener, ActionListener {
 
-    Image enemy;
-    int x = 0;
-    int y = 0;
-    int velX;
-    int velY;
-    double width;
-    double height;
+    int heroPosX = 0;
+    int heroPosY = 0;
+    int ballPosX = 0;
+    int ballPosY = 0;
+
+    int velX = 2;
+    int velY = 0;
+//    double width;
+//    double height;
+
     Timer timer;
+    Timer obstacle_timer;
+
+    int mouseX,mouseY;
 
     Hero hero;
+    Lasers lasers;
 
     Game(){
-        hero = new Hero(x,y);
-//        enemy = new ImageIcon("characters/enemy/ball_obstacle.png").getImage();
-
-        timer = new Timer(10,this);
-        timer.start();
+        hero = new Hero(heroPosX, heroPosY);
+        lasers = new Lasers(ballPosX, ballPosY);
 
         JPanel panel = new JPanel();
         panel.addMouseMotionListener(this);
@@ -36,27 +40,33 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
 
         setVisible(true);
 
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Rectangle bounds = env.getMaximumWindowBounds();
 
-        /* code that may be helpful
-        "GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-Rectangle bounds = env.getMaximumWindowBounds();
-System.out.println("Screen Bounds: " + bounds );
-        * */
-        width = 1740; // TODO : Remove this hard coded value, and get the frame's actual width
-        height = 930;
+        timer = new Timer(10,this);
+        timer.start();
+
+        obstacle_timer = new Timer(150, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        })
+        obstacle_timer.start();
+
+//        width = 1740; // TODO : Remove this hard coded value, and get the frame's actual width
+//        height = 930;
+
+        mouseX = 1750;
+        mouseY = 940;
     }
 
     public void paint(Graphics g){
         super.paint(g);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(hero.happy , hero.x, hero.y,null);
-//        g2d.drawImage(enemy,velX,velY,null);
-//        if (collision()) {
-//            g2d.drawImage(hero,0,0,null);
-//            repaint();
-//        }
+        draw((Graphics2D) g);
+    }
+
+    public void draw(Graphics2D g2d){
+        g2d.drawImage(hero.happy, hero.x, hero.y, null);
+        g2d.drawImage(lasers.ball, lasers.x, lasers.y, null);
     }
 
     @Override
@@ -66,34 +76,27 @@ System.out.println("Screen Bounds: " + bounds );
 
     @Override
     public void mouseMoved(MouseEvent e) {
-//        if (!collision()) {
-//            x = e.getX();
-//            y = e.getY();
-//        }
-
-//        repaint();
+        if (!(e.getX() >= mouseX)  && !(e.getY() >= mouseY )) {
+            hero.x = e.getX();
+            hero.y = e.getY();
+        }
+        repaint();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!collision()) {
-            hero.y += 3;
+//            hero.y += 3;
         }
 
-//        hero.y += velY;
         repaint();
     }
 
     public boolean collision(){
-        if(hero.y >= height ){
-            System.out.println("collided at X " + width);
-            return true;
-        }
-
-//        if(y == velY){
-//            System.out.println("collided at Y " + y);
+//        if(e.getX() >= width && e.getY() >= height ){
 //            return true;
 //        }
+
         return false;
     }
 }
