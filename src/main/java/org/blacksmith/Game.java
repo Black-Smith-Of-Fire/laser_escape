@@ -68,9 +68,9 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
     public void draw(Graphics2D g2d){
         g2d.drawImage(hero.happy, hero.x, hero.y, null);
         for (int i = 0; i < lasers.size(); i++) {
-            System.out.println("yyyyyyyyyyyyyyyyyyy");
+//            System.out.println("yyyyyyyyyyyyyyyyyyy");
             Lasers laser = lasers.get(i);
-            g2d.drawImage(laser.ball, laser.x, laser.y,300,300, null);
+            g2d.drawImage(laser.ball, laser.x, laser.y,300,30, null);
         }
     }
 
@@ -88,21 +88,25 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
         repaint();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public void move(){
         for (int i = 0; i < lasers.size(); i++) {
-            System.out.println("Action perffffffffffffffffffff");
+//            System.out.println("Action perffffffffffffffffffff");
             Lasers laser = lasers.get(i);
             laser.x += velX;
             laser.y += velY;
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        move();
         repaint();
     }
 
     public void shootObs(){
-        System.out.println("XXXXXXXXXXXXXXX");
-        Lasers laser = new Lasers(ballImg);
-        lasers.add(laser);
+//        System.out.println("XXXXXXXXXXXXXXX");
+        Lasers topLaser = new Lasers(ballImg);
+        lasers.add(topLaser);
     }
 
 //    public boolean collision(){
