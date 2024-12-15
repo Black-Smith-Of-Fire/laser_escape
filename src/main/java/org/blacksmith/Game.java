@@ -3,30 +3,31 @@ package org.blacksmith;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Game extends JFrame implements MouseMotionListener, ActionListener {
 
     int heroPosX = 0;
     int heroPosY = 0;
-    int ballPosX = 0;
-    int ballPosY = 0;
 
     int velX = 2;
     int velY = 0;
-//    double width;
-//    double height;
 
+    Image ballImg;
     Timer timer;
-    Timer obstacle_timer;
+    Timer lasers_timer;
 
     int mouseX,mouseY;
 
     Hero hero;
-    Lasers lasers;
+
+    ArrayList<Lasers> lasers;
 
     Game(){
         hero = new Hero(heroPosX, heroPosY);
-        lasers = new Lasers(ballPosX, ballPosY);
+        ballImg = new ImageIcon("characters/enemy/ball_lasers.png").getImage();
+
+        lasers = new ArrayList<>();
 
         JPanel panel = new JPanel();
         panel.addMouseMotionListener(this);
@@ -44,13 +45,13 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
         timer = new Timer(10,this);
         timer.start();
 
-        obstacle_timer = new Timer(150, new ActionListener() {
+        lasers_timer = new Timer(1500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                shootObs();
             }
-        })
-        obstacle_timer.start();
+        });
+        lasers_timer.start();
 
 //        width = 1740; // TODO : Remove this hard coded value, and get the frame's actual width
 //        height = 930;
@@ -66,7 +67,11 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
 
     public void draw(Graphics2D g2d){
         g2d.drawImage(hero.happy, hero.x, hero.y, null);
-        g2d.drawImage(lasers.ball, lasers.x, lasers.y, null);
+        for (int i = 0; i < lasers.size(); i++) {
+            System.out.println("yyyyyyyyyyyyyyyyyyy");
+            Lasers laser = lasers.get(i);
+            g2d.drawImage(laser.ball, laser.x, laser.y,300,300, null);
+        }
     }
 
     @Override
@@ -85,18 +90,26 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (!collision()) {
-//            hero.y += 3;
+        for (int i = 0; i < lasers.size(); i++) {
+            System.out.println("Action perffffffffffffffffffff");
+            Lasers laser = lasers.get(i);
+            laser.x += velX;
+            laser.y += velY;
         }
-
         repaint();
     }
 
-    public boolean collision(){
+    public void shootObs(){
+        System.out.println("XXXXXXXXXXXXXXX");
+        Lasers laser = new Lasers(ballImg);
+        lasers.add(laser);
+    }
+
+//    public boolean collision(){
 //        if(e.getX() >= width && e.getY() >= height ){
 //            return true;
 //        }
 
-        return false;
-    }
+//        return false;
+//    }
 }
