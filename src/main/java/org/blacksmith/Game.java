@@ -77,6 +77,17 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
     public void actionPerformed(ActionEvent e) {
         velX ++;
         velY ++;
+        collision();
         repaint();
+    }
+
+    public void collision(){
+        if(x == velX){
+            System.out.println("Collision at X :" + velX);
+        }
+
+        if(y == velY){
+            System.out.println("Collision at X :" + velY);
+        }
     }
 }
