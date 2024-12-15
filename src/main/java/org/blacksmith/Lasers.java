@@ -5,10 +5,10 @@ import java.awt.*;
 
 public class Lasers {
     Image ball;
-    int x;
-    int y;
+    int x = 0;
+    int y = 0;
 
     Lasers(Image ball){
-        ball = this.ball;
+        this.ball = ball;
     }
 }
