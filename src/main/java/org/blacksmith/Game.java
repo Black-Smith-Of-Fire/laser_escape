@@ -18,8 +18,8 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
 
     Game(){
 
-        hero = new ImageIcon("src/d'blacksmith.png").getImage();
-        enemy = new ImageIcon("src/Moi_certificate.png").getImage();
+        hero = new ImageIcon("characters/hero/happy_hero.png").getImage();
+        enemy = new ImageIcon("characters/enemy/ball_obstacle.png").getImage();
 
         timer = new Timer(10,this);
         timer.start();
