@@ -8,13 +8,13 @@ import java.awt.event.*;
 
 public class Game extends JFrame implements MouseMotionListener, ActionListener {
 
-    int heroPosX = 0;
-    int heroPosY = 0;
+    int heroPosX = 20;
+    int heroPosY = 20;
     int heroWidth = 200;
     int heroHeight = 200;
 
-    int laserPosX = 240;
-    int laserPosY = 300;
+    int laserPosX = 0;
+    int laserPosY = 0;
     int laserWidth = 50;
     int laserHeight = 50;
 
@@ -77,11 +77,10 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
     }
 
     public boolean collision(){
-        if (hero.x == lasers.x && hero.y == lasers.y) {
-            System.out.println("Collision is called");
-            return true;
-        }
-        return false;
+        return hero.x <= lasers.x + laserWidth && // when the hero hits the lasers
+                hero.y >= lasers.y + laserHeight &&
+                hero.x >= lasers.x + laserWidth &&
+                hero.y <= lasers.y + laserHeight;
     }
 
     @Override
@@ -103,7 +102,10 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
     public void actionPerformed(ActionEvent e) {
         collision();
         if (collision()) {
-            System.out.println("Yes");
+            System.out.println("The position of the laser at X is : " + (lasers.x + laserWidth));
+            System.out.println("The position of the laser at Y is : " + (lasers.x + laserWidth));
+            System.out.println("Hero at X is  : " + hero.x);
+            System.out.println("Hero at Y is : " + hero.y);
         }
     }
 
