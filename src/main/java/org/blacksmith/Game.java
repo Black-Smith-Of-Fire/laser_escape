@@ -1,17 +1,22 @@
 package org.blacksmith;
-//Todo : work on the collision , it is not working with mouselistener
-
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Game extends JFrame implements MouseMotionListener, ActionListener {
+public class Game extends JFrame implements ActionListener, KeyListener {
 
-    int heroPosX = 20;
-    int heroPosY = 20;
+    int heroPosX = 120;
+    int heroPosY = 120;
     int heroWidth = 200;
     int heroHeight = 200;
+
+    int boardWidth;
+    int boardHeight;
+
+    int velX;
+    int velY;
+
 
     int laserPosX = 0;
     int laserPosY = 0;
@@ -21,7 +26,6 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
     Timer timer;
     Timer laserLoop;
 
-    int mouseX,mouseY;
 
     Hero hero;
     Lasers lasers;
@@ -32,8 +36,8 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
         lasers = new Lasers(laserPosX,laserPosY);
 
         JPanel panel = new JPanel();
-        panel.addMouseMotionListener(this);
 
+        addKeyListener(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Escape the lasers");
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
@@ -62,8 +66,8 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
 //        width = 1740; // TODO : Remove this hard coded value, and get the frame's actual width
 //        height = 930;
 
-        mouseX = 1750;
-        mouseY = 940;
+        boardWidth = 1750;
+        boardHeight = 940;
     }
 
     public void paint(Graphics g){
@@ -84,29 +88,52 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
     }
 
     @Override
-    public void mouseDragged(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        if (!(e.getX() >= mouseX)  && !(e.getY() >= mouseY )) {
-            hero.x = e.getX();
-            hero.y = e.getY();
-        }
-        repaint();
-    }
-
-
-    @Override
     public void actionPerformed(ActionEvent e) {
-        collision();
-        if (collision()) {
-            System.out.println("The position of the laser at X is : " + (lasers.x + laserWidth));
-            System.out.println("The position of the laser at Y is : " + (lasers.x + laserWidth));
-            System.out.println("Hero at X is  : " + hero.x);
-            System.out.println("Hero at Y is : " + hero.y);
+        hero.x += velX;
+        hero.y += velY;
+        repaint();
+//        collision();
+//        if (collision()) {
+//            System.out.println("The position of the laser at X is : " + (lasers.x + laserWidth));
+//            System.out.println("The position of the laser at Y is : " + (lasers.x + laserWidth));
+//            System.out.println("Hero at X is  : " + hero.x);
+//            System.out.println("Hero at Y is : " + hero.y);
+//        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP){
+            velY = -2;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_DOWN){
+            velY = 2;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT){
+            velX = -2;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+            velX = 2;
         }
     }
 
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP){
+            velY = 0;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_DOWN){
+            velY = 0;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT){
+            velX = 0;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+            velX = 0;
+        }
+    }
 }
