@@ -10,9 +10,13 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
 
     int heroPosX = 0;
     int heroPosY = 0;
+    int heroWidth = 200;
+    int heroHeight = 200;
 
-    int laserPosX = 0;
-    int laserPosY = 0;
+    int laserPosX = 240;
+    int laserPosY = 300;
+    int laserWidth = 50;
+    int laserHeight = 50;
 
     Timer timer;
     Timer laserLoop;
@@ -44,6 +48,7 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
         timer.start();
 
 
+
         laserLoop = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,12 +72,12 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
     }
 
     public void draw(Graphics2D g2d){
-        g2d.drawImage(hero.happy, hero.x, hero.y, null);
-        g2d.drawImage(lasers.ball, lasers.x, lasers.y, null);
+        g2d.drawImage(hero.happy, hero.x, hero.y, heroWidth, heroHeight, null);
+        g2d.drawImage(lasers.ball, lasers.x, lasers.y, laserWidth, laserHeight, null);
     }
 
     public boolean collision(){
-        if (hero.x == 0 && hero.y == 0) {
+        if (hero.x == lasers.x && hero.y == lasers.y) {
             System.out.println("Collision is called");
             return true;
         }
@@ -90,17 +95,16 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
             hero.x = e.getX();
             hero.y = e.getY();
         }
-        collision();
-        if (collision()) {
-            System.out.println("Yes");
-        }
         repaint();
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        collision()// It works when called here
+        collision();
+        if (collision()) {
+            System.out.println("Yes");
+        }
     }
 
 }
