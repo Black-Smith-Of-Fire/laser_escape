@@ -1,4 +1,6 @@
 package org.blacksmith;
+//Todo : work on the collision , it is not working with mouselistener
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -98,6 +100,7 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
+//        collision()// It works when called here
     }
 
 }
