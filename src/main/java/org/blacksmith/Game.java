@@ -12,7 +12,6 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
     int laserPosX = 0;
     int laserPosY = 0;
 
-
     Timer timer;
     Timer laserLoop;
 
@@ -42,15 +41,17 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
         timer = new Timer(10,this);
         timer.start();
 
+
         laserLoop = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                move();
+                lasers.move();
                 repaint();
             }
         });
-
         laserLoop.start();
+
+
 //        width = 1740; // TODO : Remove this hard coded value, and get the frame's actual width
 //        height = 930;
 
@@ -82,10 +83,6 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
         repaint();
     }
 
-    public void move(){
-        lasers.x ++;
-        lasers.y ++;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
