@@ -8,6 +8,12 @@ public class Lasers {
     int x;
     int y;
 
+    int velX;
+    int velY;
+
+    int boardWidth = 1860;
+    int boardHeight = 1010;
+
     Timer laserLoop;
 
     Lasers(int x, int y){
@@ -18,7 +24,22 @@ public class Lasers {
     }
 
     public void move(){
-        x ++;
-        y ++;
+        collision();
+        x += velX;
+        y += velY;
+    }
+    public void collision(){
+        if (x >= boardWidth) {
+            velX = -2;
+        }
+        if (y >= boardHeight) {
+            velY = -2;
+        }
+        if (x == 0) {
+            velX = 2;
+        }
+        if (y == 0) {
+            velY = 2;
+        }
     }
 }
