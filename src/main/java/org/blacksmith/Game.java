@@ -69,6 +69,14 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
         g2d.drawImage(lasers.ball, lasers.x, lasers.y, null);
     }
 
+    public boolean collision(){
+        if (hero.x == 0 && hero.y == 0) {
+            System.out.println("Collision is called");
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void mouseDragged(MouseEvent e) {
 
@@ -79,6 +87,10 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
         if (!(e.getX() >= mouseX)  && !(e.getY() >= mouseY )) {
             hero.x = e.getX();
             hero.y = e.getY();
+        }
+        collision();
+        if (collision()) {
+            System.out.println("Yes");
         }
         repaint();
     }
