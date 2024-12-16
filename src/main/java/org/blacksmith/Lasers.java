@@ -5,10 +5,14 @@ import java.awt.*;
 
 public class Lasers {
     Image ball;
-    int x = 0;
-    int y = 0;
+    int x;
+    int y;
 
-    Lasers(Image ball){
-        this.ball = ball;
+    Lasers(int x, int y){
+        this.x = x;
+        this.y = y;
+
+        ball = new ImageIcon("characters/enemy/ball_obstacle.png").getImage();
+
     }
 }
