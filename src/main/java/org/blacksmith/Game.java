@@ -80,25 +80,24 @@ public class Game extends JFrame implements ActionListener, KeyListener {
         g2d.drawImage(lasers.ball, lasers.x, lasers.y, laserWidth, laserHeight, null);
     }
 
-    public boolean collision(){
-        return hero.x <= lasers.x + laserWidth && // when the hero hits the lasers
-                hero.y >= lasers.y + laserHeight &&
-                hero.x >= lasers.x + laserWidth &&
-                hero.y <= lasers.y + laserHeight;
+    public void collision(){
+
+    }
+
+    public void move(){
+        if (hero.x <= boardWidth && hero.x >= 0) {
+            hero.x += velX;
+        }
+        if (hero.y <= boardHeight && hero.y >= 0) {
+            hero.y += velY;
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        hero.x += velX;
-        hero.y += velY;
+        move();
+
         repaint();
-//        collision();
-//        if (collision()) {
-//            System.out.println("The position of the laser at X is : " + (lasers.x + laserWidth));
-//            System.out.println("The position of the laser at Y is : " + (lasers.x + laserWidth));
-//            System.out.println("Hero at X is  : " + hero.x);
-//            System.out.println("Hero at Y is : " + hero.y);
-//        }
     }
 
     @Override
