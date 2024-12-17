@@ -3,35 +3,44 @@ package org.blacksmith;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.Random;
 
-public class Game extends JFrame implements MouseMotionListener, ActionListener {
+public class Game extends JFrame implements ActionListener, KeyListener {
 
-    int heroPosX = 0;
-    int heroPosY = 0;
+    int heroPosX = 120;
+    int heroPosY = 120;
+    int heroWidth = 200;
+    int heroHeight = 200;
 
-    int velX = 2;
-    int velY = 0;
+    int boardWidth;
+    int boardHeight;
 
-    Image ballImg;
+    int velX;
+    int velY;
+
+
+    Random random = new Random();
+    int push = random.nextInt(0, 1750);
+    int laserPosX = push;
+    int laserPosY = 0;
+    int laserWidth = 50;
+    int laserHeight = 50;
+
     Timer timer;
-    Timer lasers_timer;
+    Timer laserLoop;
 
-    int mouseX,mouseY;
 
     Hero hero;
+    Lasers lasers;
 
-    ArrayList<Lasers> lasers;
 
     Game(){
         hero = new Hero(heroPosX, heroPosY);
-        ballImg = new ImageIcon("characters/enemy/ball_lasers.png").getImage();
-
-        lasers = new ArrayList<>();
+        lasers = new Lasers(laserPosX,laserPosY);
 
         JPanel panel = new JPanel();
-        panel.addMouseMotionListener(this);
 
+        addKeyListener(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Escape the lasers");
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
@@ -45,19 +54,24 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
         timer = new Timer(10,this);
         timer.start();
 
-        lasers_timer = new Timer(1500, new ActionListener() {
+
+
+        laserLoop = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                shootObs();
+                lasers.move();
+                repaint();
             }
         });
-        lasers_timer.start();
+        laserLoop.start();
+
 
 //        width = 1740; // TODO : Remove this hard coded value, and get the frame's actual width
 //        height = 930;
 
-        mouseX = 1750;
-        mouseY = 940;
+        boardWidth = 1750;
+        boardHeight = 940;
+
     }
 
     public void paint(Graphics g){
@@ -66,54 +80,65 @@ public class Game extends JFrame implements MouseMotionListener, ActionListener 
     }
 
     public void draw(Graphics2D g2d){
-        g2d.drawImage(hero.happy, hero.x, hero.y, null);
-        for (int i = 0; i < lasers.size(); i++) {
-//            System.out.println("yyyyyyyyyyyyyyyyyyy");
-            Lasers laser = lasers.get(i);
-            g2d.drawImage(laser.ball, laser.x, laser.y,300,30, null);
-        }
+        g2d.drawImage(hero.happy, hero.x, hero.y, heroWidth, heroHeight, null);
+        g2d.drawImage(lasers.ball, lasers.x, lasers.y, laserWidth, laserHeight, null);
     }
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
+    public void collision(){
 
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        if (!(e.getX() >= mouseX)  && !(e.getY() >= mouseY )) {
-            hero.x = e.getX();
-            hero.y = e.getY();
-        }
-        repaint();
     }
 
     public void move(){
-        for (int i = 0; i < lasers.size(); i++) {
-//            System.out.println("Action perffffffffffffffffffff");
-            Lasers laser = lasers.get(i);
-            laser.x += velX;
-            laser.y += velY;
+        if (hero.x <= boardWidth && hero.x >= 0) {
+            hero.x += velX;
+        }
+        if (hero.y <= boardHeight && hero.y >= 0) {
+            hero.y += velY;
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (laserPosX == push) {
+            lasers.x ++;
+        }
         move();
         repaint();
     }
 
-    public void shootObs(){
-//        System.out.println("XXXXXXXXXXXXXXX");
-        Lasers topLaser = new Lasers(ballImg);
-        lasers.add(topLaser);
+    @Override
+    public void keyTyped(KeyEvent e) {
     }
 
-//    public boolean collision(){
-//        if(e.getX() >= width && e.getY() >= height ){
-//            return true;
-//        }
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP){
+            velY = -2;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_DOWN){
+            velY = 2;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT){
+            velX = -2;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+            velX = 2;
+        }
+    }
 
-//        return false;
-//    }
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP){
+            velY = 0;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_DOWN){
+            velY = 0;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT){
+            velX = 0;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+            velX = 0;
+        }
+    }
 }

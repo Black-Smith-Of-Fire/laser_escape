@@ -5,10 +5,39 @@ import java.awt.*;
 
 public class Lasers {
     Image ball;
-    int x = 0;
-    int y = 0;
+    int x;
+    int y;
 
-    Lasers(Image ball){
-        this.ball = ball;
+    int velX;
+    int velY;
+
+    int boardWidth = 1860;
+    int boardHeight = 1010;
+
+    Timer laserLoop;
+
+    Lasers(int x, int y){
+        this.x = x;
+        this.y = y;
+
+        ball = new ImageIcon("characters/enemy/ball_obstacle.png").getImage();
     }
+
+    public void move(){
+        if (x <= 0) {
+            velX = 2;
+        }
+        if (y <= 0) {
+            velY = 2;
+        }
+        if (x >= boardWidth) {
+            velX = -2;
+        }
+        if (y >= boardHeight) {
+            velY = -2;
+        }
+        x += velX;
+        y += velY;
+    }
+
 }
