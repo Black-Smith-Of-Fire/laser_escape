@@ -35,12 +35,11 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
 
     Hero hero;
-    Lasers lasers;
 
 
     Game(){
         hero = new Hero(heroPosX, heroPosY);
-        placeObstacles();
+//        placeObstacles();
 
         JPanel panel = new JPanel();
 
@@ -63,8 +62,9 @@ public class Game extends JFrame implements ActionListener, KeyListener {
         laserLoop = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                lasers.move();
-                repaint();
+                placeObstacles();
+//                lasers.move();
+//                repaint();
             }
         });
         laserLoop.start();
@@ -76,6 +76,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
         boardWidth = 1750;
         boardHeight = 940;
 
+        laserList = new ArrayList<>();
     }
 
     public void paint(Graphics g){
@@ -85,7 +86,10 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
     public void draw(Graphics2D g2d){
         g2d.drawImage(hero.happy, hero.x, hero.y, heroWidth, heroHeight, null);
-        g2d.drawImage(lasers.ball, lasers.x, lasers.y, laserWidth, laserHeight, null);
+        for (int i = 0; i < laserList.size(); i++) {
+            Lasers lasers = laserList.get(i);
+            g2d.drawImage(lasers.ball, lasers.x, lasers.y, laserWidth, laserHeight, null);
+        }
     }
 
     public void collision(){
@@ -102,21 +106,28 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     }
 
     public void placeObstacles(){
-        lasers = new Lasers(laserPosX,laserPosY);
+        Lasers lasers = new Lasers(laserPosX,laserPosY);
+        laserList.add(lasers);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (laserPosX == push) {
-            if (randomX == 0) {
-                lasers.x --;
-            }
-            else{
-                lasers.x ++;
+        for (int i = 0; i < laserList.size(); i++) {
+            Lasers lasers = laserList.get(i);
+
+            if (laserPosX == push) {
+                lasers.x += 2;
+//                if (randomX == 0) {
+//                    lasers.x --;
+//                }
+//                else{
+//                    lasers.x ++;
+//                }
             }
         }
         move();
         repaint();
+
     }
 
     @Override
