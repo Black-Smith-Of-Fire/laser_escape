@@ -42,4 +42,20 @@ public class Lasers {
             velY = 2;
         }
     }
+
+    public void setX(int velX){
+        this.velX = velX;
+    }
+
+    public int getX(int velX){
+        return velX;
+    }
+
+    public void setY(int velY){
+        this.velY = velY;
+    }
+
+    public int getY(int velY){
+        return velY;
+    }
 }
