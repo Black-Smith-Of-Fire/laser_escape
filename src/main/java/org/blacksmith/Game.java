@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 public class Game extends JFrame implements ActionListener, KeyListener {
 
     int heroPosX = 120;
@@ -24,6 +25,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
     Random random = new Random();
     int push = random.nextInt(0, 1750);
+//    int push = 50;
     int laserPosX = push;
     int laserPosY = 0;
     int laserWidth = 50;
@@ -79,6 +81,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
     public void paint(Graphics g){
         super.paint(g);
+        g.drawString("Score : ", 1600,0);
         draw((Graphics2D) g);
     }
 
@@ -105,6 +108,8 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
     public void placeObstacles(){
         Lasers lasers = new Lasers(laserPosX,laserPosY);
+        Random randomx = new Random();
+        lasers.x = randomx.nextInt(0,1750);
         laserList.add(lasers);
     }
 
@@ -114,13 +119,12 @@ public class Game extends JFrame implements ActionListener, KeyListener {
             Lasers lasers = laserList.get(i);
             lasers.move();
             if (laserPosX == push) {
-                lasers.x += 2;
-//                if (randomX == 0) {
-//                    lasers.x --;
-//                }
-//                else{
-//                    lasers.x ++;
-//                }
+                if (randomX == 0) {
+                    lasers.x += 2;
+                }
+                else{
+                    lasers.x -= 2;
+                }
                 repaint();
             }
         }
