@@ -3,6 +3,7 @@ package org.blacksmith;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
 public class Game extends JFrame implements ActionListener, KeyListener {
 
@@ -18,7 +19,9 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     int velY;
 
 
-    int laserPosX = 0;
+    Random random = new Random();
+    int push = random.nextInt(0, 1750);
+    int laserPosX = push;
     int laserPosY = 0;
     int laserWidth = 50;
     int laserHeight = 50;
@@ -68,6 +71,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
         boardWidth = 1750;
         boardHeight = 940;
+
     }
 
     public void paint(Graphics g){
@@ -95,8 +99,10 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (laserPosX == push) {
+            lasers.x ++;
+        }
         move();
-
         repaint();
     }
 
