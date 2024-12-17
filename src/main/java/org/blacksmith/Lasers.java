@@ -24,22 +24,26 @@ public class Lasers {
     }
 
     public void move(){
+        velX = 2;
+        velY = 2;
         collision();
+        getX();
+        getY();
         x += velX;
         y += velY;
     }
     public void collision(){
         if (x >= boardWidth) {
-            velX = -2;
+            setX(-2);
         }
         if (y >= boardHeight) {
-            velY = -2;
+            setY(-2);
         }
         if (x == 0) {
-            velX = 2;
+            setX(2);
         }
         if (y == 0) {
-            velY = 2;
+            setY(2);
         }
     }
 
@@ -47,7 +51,7 @@ public class Lasers {
         this.velX = velX;
     }
 
-    public int getX(int velX){
+    public int getX(){
         return velX;
     }
 
@@ -55,7 +59,7 @@ public class Lasers {
         this.velY = velY;
     }
 
-    public int getY(int velY){
+    public int getY(){
         return velY;
     }
 }
