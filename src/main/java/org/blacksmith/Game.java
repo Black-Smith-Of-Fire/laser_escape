@@ -26,7 +26,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     int laserPosY;
 
     Random random = new Random();
-//    int push = random.nextInt(0, 1750);
+    int push = random.nextInt(0, 1750);
 //    int push = 50;
 //    int laserPosX = push;
 
@@ -38,7 +38,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
     Game(){
         laserPosX = 520;
-        laserPosY = 520;
+        laserPosY = 0;
         hero = new Hero(heroPosX, heroPosY);
         lasers = new Lasers(laserPosX,laserPosY);
 
@@ -96,12 +96,14 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) {
         move();
 //        repaint();
-        if (laserPosX == 520) {
+//        int a = 1;
+//        while(a != 0) {
             for (int i = 0; i < 9; i++) {
                 lasers.laserList.get(i).x -= 2;
                 lasers.laserList.get(i).y += 2;
             }
-        }
+//            a--;
+//        }
         lasers.move();
         repaint();
     }
