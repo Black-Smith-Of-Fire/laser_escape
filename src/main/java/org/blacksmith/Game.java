@@ -24,23 +24,19 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
 
     Random random = new Random();
-    int push = random.nextInt(0, 1750);
+//    int push = random.nextInt(0, 1750);
 //    int push = 50;
-    int laserPosX = push;
-    int laserPosY = 0;
-    int laserWidth = 50;
-    int laserHeight = 50;
+//    int laserPosX = push;
 
-    ArrayList<Lasers> laserList;
     Timer timer;
-    Timer laserLoop;
 
 
     Hero hero;
-
+    Lasers lasers;
 
     Game(){
         hero = new Hero(heroPosX, heroPosY);
+        lasers = new Lasers(0,0);
 
         JPanel panel = new JPanel();
 
@@ -58,39 +54,23 @@ public class Game extends JFrame implements ActionListener, KeyListener {
         timer = new Timer(10,this);
         timer.start();
 
-
-
-        laserLoop = new Timer(500, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                placeObstacles();
-                repaint();
-            }
-        });
-        laserLoop.start();
-
-
 //        width = 1740; // TODO : Remove this hard coded value, and get the frame's actual width
 //        height = 930;
 
         boardWidth = 1750;
         boardHeight = 940;
 
-        laserList = new ArrayList<>();
     }
 
     public void paint(Graphics g){
         super.paint(g);
-        g.drawString("Score : ", 1600,0);
         draw((Graphics2D) g);
+//        lasers.draw((Graphics2D) g);
+        lasers.lol((Graphics2D) g);
     }
 
     public void draw(Graphics2D g2d){
         g2d.drawImage(hero.happy, hero.x, hero.y, heroWidth, heroHeight, null);
-        for (int i = 0; i < laserList.size(); i++) {
-            Lasers lasers = laserList.get(i);
-            g2d.drawImage(lasers.ball, lasers.x, lasers.y, laserWidth, laserHeight, null);
-        }
     }
 
     public void collision(){
@@ -106,31 +86,14 @@ public class Game extends JFrame implements ActionListener, KeyListener {
         }
     }
 
-    public void placeObstacles(){
-        Lasers lasers = new Lasers(laserPosX,laserPosY);
-        Random randomx = new Random();
-        lasers.x = randomx.nextInt(0,1750);
-        laserList.add(lasers);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        for (int i = 0; i < laserList.size(); i++) {
-            Lasers lasers = laserList.get(i);
-            lasers.move();
-            if (laserPosX == push) {
-                if (randomX == 0) {
-                    lasers.x += 2;
-                }
-                else{
-                    lasers.x -= 2;
-                }
-                repaint();
-            }
-        }
         move();
         repaint();
-
+        lasers.x ++;
+        lasers.y ++;
+//        lasers.move();
+        repaint();
     }
 
     @Override
