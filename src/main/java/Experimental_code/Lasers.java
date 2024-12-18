@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 public class Main extends JFrame{
 
-    int x;
-    int y;
     int width;
     int height;
 
@@ -38,10 +36,6 @@ public class Main extends JFrame{
         laserList = new ArrayList<>();
         laserList.add(new lasers(520,520));
         placeObstacles();
-//        laserList.add(new lasers(590,50));
-//        laserList.add(new lasers(590,80));
-//        laserList.add(new lasers(590,70));
-//        laserList.add(new lasers(80,50));
 
         width = 29;
         height = 26;
@@ -74,11 +68,6 @@ public class Main extends JFrame{
             lasers laser = laserList.get(i);
             g2d.drawImage(star, laser.x, laser.y, width, height, null);
         }
-//        g2d.drawImage(ball8, 520,520, width, height, null);
-//        g2d.drawImage(ball9, 520,520, width, height, null);
-//        g2d.drawImage(ball2, (x + width)/2,(y + height)/2, width, height, null);
-//        g2d.drawImage(ball1, x, y, width, height, null);
     }
 
-//    public void
 }
