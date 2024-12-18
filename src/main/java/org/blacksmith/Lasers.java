@@ -52,18 +52,28 @@ public class Lasers{
     }
 
     public void move(){
+//        for (int i = 0; i < 9; i++) {
+//            laserList.get(i).x += -2;
+//            laserList.get(i).y += 2;
+//        }
         System.out.println("Moving ");
-        if (x <= 0) {
-            x ++;
-        }
-        if (y <= 0) {
-            y += 2;
-        }
-        if (x >= boardWidth) {
-            x -= 2;
-        }
-        if (y >= boardHeight) {
-            y -= 2;
+        for (int i = 0; i < 9; i++) {
+            if (laserList.get(i).x <= 0) {
+//                laserList.get(i).x ++;
+                System.out.println("true");
+            }
+            if (laserList.get(i).y <= 0) {
+//                laserList.get(i).y += 2;
+                System.out.println("true");
+            }
+            if (laserList.get(i).x >= boardWidth) {
+//                laserList.get(i).x -= 2;
+                System.out.println("true");
+            }
+            if (laserList.get(i).y >= boardHeight) {
+//                laserList.get(i).y -= 2;
+                System.out.println("true");
+            }
         }
     }
 
