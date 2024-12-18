@@ -13,6 +13,8 @@ public class Lasers{
     int width;
     int height;
 
+    int velX = 2;
+    int velY = 2;
     int boardWidth = 1860;
     int boardHeight = 1010;
 
@@ -21,6 +23,11 @@ public class Lasers{
     Lasers(int x, int y){
         this.x = x;
         this.y = y;
+
+//        for (int i = 0; i < 9; i++) {
+//            laserList.get(i).x += velX;
+//            laserList.get(i).y += velY;
+//        }
 
         laserList = new ArrayList<>();
         laserList.add(new Items(x, y));
@@ -52,29 +59,28 @@ public class Lasers{
     }
 
     public void move(){
-//        for (int i = 0; i < 9; i++) {
-//            laserList.get(i).x += -2;
-//            laserList.get(i).y += 2;
-//        }
-        System.out.println("Moving ");
-        for (int i = 0; i < 9; i++) {
-            if (laserList.get(i).x <= 0) {
-                laserList.get(i).x ++;
-//                System.out.println("true");
+
+        // TODO : This for loop checks if each rectangle within the bounds .Afterwards it doesn't bother to
+        // move it on
+            if (laserList.get(1).x <= 0) {
+                velX = 2;
+                System.out.println("x is " + laserList.get(1).x);
             }
-            if (laserList.get(i).y <= 0) {
-//                laserList.get(i).y += 2;
-                System.out.println("true");
+
+            if (laserList.get(1).y <= 0) {
+                velY = 2;
+                System.out.println("y is " + laserList.get(1).y);
             }
-            if (laserList.get(i).x >= boardWidth) {
-//                laserList.get(i).x -= 2;
-                System.out.println("true");
+
+            if (laserList.get(1).x >= boardWidth) {
+                velX = -2;
+                System.out.println(" kkkkkkkkkkkkkkkklol x is " + laserList.get(1).x);
             }
-            if (laserList.get(i).y >= boardHeight) {
-                laserList.get(i).y -= 2;
-//                System.out.println("true");
+
+            if (laserList.get(1).y >= boardHeight) {
+                velY = -2;
+                System.out.println("lol lllllllllllllllllly is " + laserList.get(1).y);
             }
-        }
     }
 
 }
