@@ -59,8 +59,8 @@ public class Lasers{
         System.out.println("Moving ");
         for (int i = 0; i < 9; i++) {
             if (laserList.get(i).x <= 0) {
-//                laserList.get(i).x ++;
-                System.out.println("true");
+                laserList.get(i).x ++;
+//                System.out.println("true");
             }
             if (laserList.get(i).y <= 0) {
 //                laserList.get(i).y += 2;
@@ -71,8 +71,8 @@ public class Lasers{
                 System.out.println("true");
             }
             if (laserList.get(i).y >= boardHeight) {
-//                laserList.get(i).y -= 2;
-                System.out.println("true");
+                laserList.get(i).y -= 2;
+//                System.out.println("true");
             }
         }
     }
