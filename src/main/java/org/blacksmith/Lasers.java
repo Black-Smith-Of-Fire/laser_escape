@@ -1,10 +1,12 @@
-package Experimental_code;
+package org.blacksmith;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class Lasers extends JFrame{
+public class Lasers{
 
     int x;
     int y;
@@ -26,13 +28,6 @@ public class Lasers extends JFrame{
 
         width = 29;
         height = 26;
-        JPanel panel = new JPanel();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Experimental code");
-        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        add(panel);
-        pack();
-        setVisible(true);
     }
 
 
@@ -43,12 +38,6 @@ public class Lasers extends JFrame{
         }
     }
 
-    public void paint(Graphics g){
-        super.paint(g);
-        g.drawString("Score : ", 1600,0);
-        draw((Graphics2D) g);
-    }
-
     public void draw(Graphics2D g2d){
         for (int i = laserList.size() - 1; i >= 0; i--) {
             Image star = new ImageIcon("characters/enemy/starRed/redRect" + i +".png").getImage();
@@ -57,10 +46,15 @@ public class Lasers extends JFrame{
         }
     }
 
+    public void lol(Graphics2D g2d){
+            Image star = new ImageIcon("characters/enemy/starRed/redRect0.png").getImage();
+            g2d.drawImage(star,x,y,null);
+    }
 
     public void move(){
+        System.out.println("Moving ");
         if (x <= 0) {
-            x += 2;
+            x ++;
         }
         if (y <= 0) {
             y += 2;
@@ -72,6 +66,5 @@ public class Lasers extends JFrame{
             y -= 2;
         }
     }
-
 
 }
