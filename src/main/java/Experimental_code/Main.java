@@ -36,11 +36,8 @@ public class Main extends JFrame{
     Main(){
 
         laserList = new ArrayList<>();
-        laserList.add(new lasers(50,50));//0
-        laserList.add(new lasers(100,50));//1
-        int lol = laserList.get(1).x;
-        laserList.add(new lasers(190,lol));//2
-//        laserList.add(new lasers(590,20));
+        laserList.add(new lasers(520,520));
+        placeObstacles();
 //        laserList.add(new lasers(590,50));
 //        laserList.add(new lasers(590,80));
 //        laserList.add(new lasers(590,70));
@@ -59,11 +56,9 @@ public class Main extends JFrame{
 
 
     public void placeObstacles(){
-        for (int i = 0; i < 9; i++) {
-            int laserx = (laserList.get(i - 1).x + width)/2;
-            int lasery = (laserList.get(i - 1).y + height)/2;
-            laserList.get(i).x = laserx;
-            laserList.get(i).y = lasery;
+        for (int i = 1; i < 9; i++) {
+            laserList.add(new lasers(laserList.get(i - 1).x + 14, laserList.get(i - 1).y - 14));//0
+            System.out.println(i + " x : " + laserList.get(i).x);
         }
     }
 
@@ -77,7 +72,6 @@ public class Main extends JFrame{
         for (int i = laserList.size() - 1; i >= 0; i--) {
             Image star = new ImageIcon("characters/enemy/starRed/redRect" + i +".png").getImage();
             lasers laser = laserList.get(i);
-            System.out.println(i + " x pos : " + laser.x);
             g2d.drawImage(star, laser.x, laser.y, width, height, null);
         }
 //        g2d.drawImage(ball8, 520,520, width, height, null);
