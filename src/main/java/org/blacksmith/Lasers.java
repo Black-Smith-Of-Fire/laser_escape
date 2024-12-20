@@ -36,7 +36,7 @@ public class Lasers{
     public void placeObstacles(){
         for (int i = 1; i < 9; i++) {
             laserList.add(new Items(laserList.get(i - 1).x + 14, laserList.get(i - 1).y - 14));//0
-            System.out.println(i + " x : " + laserList.get(i).x);
+//            System.out.println(i + " x : " + laserList.get(i).x);
         }
     }
 
@@ -57,26 +57,29 @@ public class Lasers{
         // TODO : This for loop checks if each rectangle within the bounds .Afterwards it doesn't bother to
         // move it on
         for (int i = 0; i < 9; i++) {
-            if (x <= 0) {
+            if (laserList.get(i).x <= 0) {
                 velX = 2;
-                System.out.println("x is " + laserList.get(1).x);
+//                System.out.println("x is " + laserList.get(1).x);
             }
 
-            if (y <= 0) {
+            if (laserList.get(i).y <= 0) {
                 velY = 2;
-                System.out.println("y is " + laserList.get(1).y);
+//                System.out.println("y is " + laserList.get(1).y);
             }
 
-            if (x >= boardWidth) {
+            if (laserList.get(i).x >= boardWidth) {
                 velX = -2;
-                System.out.println(" kkkkkkkkkkkkkkkklol x is " + laserList.get(1).x);
+//                System.out.println(" kkkkkkkkkkkkkkkklol x is " + laserList.get(1).x);
             }
 
-            if (y >= boardHeight) {
+            if (laserList.get(i).y >= boardHeight) {
                 velY = -2;
-                System.out.println("lol lllllllllllllllllly is " + laserList.get(1).y);
+//                System.out.println("lol lllllllllllllllllly is " + laserList.get(1).y);
             }
             Items item = new Items(laserList.get(i).x + velX, laserList.get(i).y + velY);
+            System.out.println(i + " " + i + " " + i +" "+ i);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX : " + item.x);
+            System.out.println("OOOOOOOOOOOOOOOOOO is : " + item.y);
             laserList.set(i, item);
         }
     }
