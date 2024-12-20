@@ -95,15 +95,12 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         move();
-//        repaint();
-//        int a = 1;
-//        while(a != 0) {
+        if(laserPosX == 520) {
             for (int i = 0; i < 9; i++) {
                 lasers.laserList.get(i).x -= 2;
                 lasers.laserList.get(i).y += 2;
             }
-//            a--;
-//        }
+        }
         lasers.move();
         repaint();
     }
