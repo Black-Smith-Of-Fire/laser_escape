@@ -56,7 +56,7 @@ public class Lasers{
     public void move(){
         // TODO : This for loop checks if each rectangle within the bounds .Afterwards it doesn't bother to
         // move it on
-//        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) {
             if (x <= 0) {
                 velX = 2;
                 System.out.println("x is " + laserList.get(1).x);
@@ -76,9 +76,9 @@ public class Lasers{
                 velY = -2;
                 System.out.println("lol lllllllllllllllllly is " + laserList.get(1).y);
             }
-            x += velX;
-            y += velY;
+            Items item = new Items(laserList.get(i).x + velX, laserList.get(i).y + velY);
+            laserList.set(i, item);
         }
-//    }
+    }
 
 }
