@@ -48,11 +48,6 @@ public class Lasers{
         }
     }
 
-    public void lol(Graphics2D g2d){
-            Image star = new ImageIcon("characters/enemy/starRed/redRect0.png").getImage();
-            g2d.drawImage(star,x,y,null);
-    }
-
     public void move(){
         // TODO : This for loop checks if each rectangle within the bounds .Afterwards it doesn't bother to
         // move it on
