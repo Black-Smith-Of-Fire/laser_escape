@@ -44,6 +44,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
         JPanel panel = new JPanel();
 
+        panel.setBackground(Color.black);
         addKeyListener(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Escape the lasers");
