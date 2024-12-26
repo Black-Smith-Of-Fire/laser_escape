@@ -50,17 +50,16 @@ public class Lasers{
 
     public void lol(Graphics2D g2d){
         Image star = new ImageIcon("characters/enemy/starRed/redRect1.png").getImage();
-        g2d.drawImage(star, laserList.get(0).x, laserList.get(0).y, null);
+        g2d.drawImage(star, x, y, null);
     }
 
     public void moveObs(){
-        move(laserList.get(0).x, laserList.get(0).y); // God, let this work
+        move(x, y); // God, let this work
     }
 
     public void move(int x, int y){
         // TODO : This for loop checks if each rectangle within the bounds .Afterwards it doesn't bother to
         // move it on
-        for (int i = 0; i < 9; i++) {
             if (x <= 0) {
                 velX = 2;
             }
@@ -76,7 +75,8 @@ public class Lasers{
             if (y >= boardHeight) {
                 velY = -2;
             }
-        }
+        x += velX;
+        y += velY;
     }
 
 }
