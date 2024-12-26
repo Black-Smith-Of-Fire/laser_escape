@@ -70,8 +70,8 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     public void paint(Graphics g){
         super.paint(g);
         draw((Graphics2D) g);
-        lasers.draw((Graphics2D) g);
-//        lasers.lol((Graphics2D) g);
+//        lasers.draw((Graphics2D) g);
+        lasers.lol((Graphics2D) g);
     }
 
     public void draw(Graphics2D g2d){
@@ -79,7 +79,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     }
 
     public void collision(){
-
+        // For checking the collision in the future
     }
 
     public void move(){
@@ -96,13 +96,13 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         move();
-        if(laserPosX == 520) {
-            for (int i = 0; i < 9; i++) {
-                lasers.laserList.get(i).x -= 2;
-                lasers.laserList.get(i).y += 2;
-            }
-        }
-        lasers.move();
+//        if(laserPosX == 520) {
+//            for (int i = 0; i < 9; i++) {
+//                lasers.laserList.get(i).x -= 2;
+//                lasers.laserList.get(i).y += 2;
+//            }
+//        }
+        lasers.moveObs();
         repaint();
     }
 
