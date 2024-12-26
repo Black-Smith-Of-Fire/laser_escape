@@ -37,7 +37,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     Lasers lasers;
 
     Game(){
-        laserPosX = 520;
+        laserPosX = 0;
         laserPosY = 0;
         hero = new Hero(heroPosX, heroPosY);
         lasers = new Lasers(laserPosX,laserPosY);
