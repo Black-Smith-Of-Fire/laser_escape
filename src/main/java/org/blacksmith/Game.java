@@ -37,8 +37,8 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     Lasers lasers;
 
     Game(){
-        laserPosX = 0;
-        laserPosY = 0;
+        laserPosX = 600;
+        laserPosY = 500;
         hero = new Hero(heroPosX, heroPosY);
         lasers = new Lasers(laserPosX,laserPosY);
 
@@ -102,6 +102,10 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 //                lasers.laserList.get(i).y += 2;
 //            }
 //        }
+        if (laserPosX == 600) {
+            lasers.x += 2;
+            lasers.y += 2;
+        }
         lasers.moveObs();
         repaint();
     }
