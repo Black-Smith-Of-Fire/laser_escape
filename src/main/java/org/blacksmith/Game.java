@@ -3,7 +3,6 @@ package org.blacksmith;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -37,10 +36,10 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     Lasers lasers;
 
     Game(){
-        laserPosX = 600;
-        laserPosY = 500;
+        laserPosX = 0;
+        laserPosY = 0;
         hero = new Hero(heroPosX, heroPosY);
-        lasers = new Lasers(laserPosX,laserPosY);
+        lasers = new Lasers(laserPosX, laserPosY);
 
         JPanel panel = new JPanel();
 
@@ -96,16 +95,6 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         move();
-//        if(laserPosX == 520) {
-//            for (int i = 0; i < 9; i++) {
-//                lasers.laserList.get(i).x -= 2;
-//                lasers.laserList.get(i).y += 2;
-//            }
-//        }
-        if (laserPosX == 600) {
-            lasers.x += 2;
-            lasers.y += 2;
-        }
         lasers.moveObs();
         repaint();
     }
