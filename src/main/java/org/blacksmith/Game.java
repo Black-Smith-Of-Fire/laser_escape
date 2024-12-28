@@ -18,6 +18,8 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     int boardWidth;
     int boardHeight;
 
+    MultipleLasers multipleLasers;
+
     int velX;
     int velY;
 
@@ -39,7 +41,9 @@ public class Game extends JFrame implements ActionListener, KeyListener {
         laserPosX = 0;
         laserPosY = 0;
         hero = new Hero(heroPosX, heroPosY);
-        lasers = new Lasers(laserPosX, laserPosY);
+        multipleLasers = new MultipleLasers();
+
+//        lasers = new Lasers(laserPosX, laserPosY);
 
         JPanel panel = new JPanel();
 
@@ -69,8 +73,9 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     public void paint(Graphics g){
         super.paint(g);
         draw((Graphics2D) g);
+        multipleLasers.draw((Graphics2D) g);
 //        lasers.draw((Graphics2D) g);
-        lasers.lol((Graphics2D) g);
+//        lasers.lol((Graphics2D) g);
     }
 
     public void draw(Graphics2D g2d){
@@ -95,7 +100,6 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         move();
-        lasers.moveObs();
         repaint();
     }
 
