@@ -1,5 +1,6 @@
 package org.blacksmith;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -9,7 +10,6 @@ public class Lasers{
     int y;
     int width;
     int height;
-    Image star;
 
     int velX;
     int velY;
@@ -19,10 +19,9 @@ public class Lasers{
 
     ArrayList<Items> laserList;
 
-    Lasers(int x, int y, Image star){
+    Lasers(int x, int y){
         this.x = x;
         this.y = y;
-        this.star = star;
 
         laserList = new ArrayList<>();
         laserList.add(new Items(x,y));
@@ -34,6 +33,7 @@ public class Lasers{
     }
 
     public void draw(Graphics2D g2d){
+        Image star = new ImageIcon("characters/enemy/starRed/redRect0.png").getImage();
         g2d.drawImage(star, x, y, null);
     }
 
