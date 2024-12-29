@@ -10,7 +10,7 @@ public class MultipleLasers {
 
     MultipleLasers(){
         laserList = new ArrayList<>();
-        lol = new Lasers(0, 0);
+        lol = new Lasers(620, 500);
     }
 
     public void draw(Graphics2D g2d){
