@@ -2,11 +2,14 @@ package org.blacksmith;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
-public class Lasers {
-    Image ball;
+public class Lasers{
+
     int x;
     int y;
+    int width;
+    int height;
 
     int velX;
     int velY;
@@ -14,28 +17,42 @@ public class Lasers {
     int boardWidth = 1860;
     int boardHeight = 1010;
 
-    Timer laserLoop;
+    ArrayList<Items> laserList;
 
     Lasers(int x, int y){
         this.x = x;
         this.y = y;
 
-        ball = new ImageIcon("characters/enemy/ball_obstacle.png").getImage();
+        laserList = new ArrayList<>();
+        laserList.add(new Items(x,y));
+
+        velX = 0;
+        velY = 0;
+        width = 29;
+        height = 26;
+    }
+
+    public void draw(Graphics2D g2d){
+        Image star = new ImageIcon("characters/enemy/starRed/redRect0.png").getImage();
+        g2d.drawImage(star, x, y, null);
     }
 
     public void move(){
-        if (x <= 0) {
-            velX = 2;
-        }
-        if (y <= 0) {
-            velY = 2;
-        }
-        if (x >= boardWidth) {
-            velX = -2;
-        }
-        if (y >= boardHeight) {
-            velY = -2;
-        }
+            if (x <= 0) {
+                velX += 2;
+            }
+
+            if (y <= 0) {
+                velY += 2;
+            }
+
+            if (x >= boardWidth) {
+                velX -= 2;
+             }
+
+            if (y >= boardHeight) {
+                velY -= 2;
+            }
         x += velX;
         y += velY;
     }

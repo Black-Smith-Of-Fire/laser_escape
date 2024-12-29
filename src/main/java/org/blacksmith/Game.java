@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 
+
 public class Game extends JFrame implements ActionListener, KeyListener {
 
     int heroPosX = 120;
@@ -12,34 +13,41 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     int heroWidth = 200;
     int heroHeight = 200;
 
+    Random randomDir = new Random();
+    int randomX = randomDir.nextInt(2);
     int boardWidth;
     int boardHeight;
+
+    MultipleLasers multipleLasers;
 
     int velX;
     int velY;
 
+    int laserPosX;
+    int laserPosY;
 
     Random random = new Random();
     int push = random.nextInt(0, 1750);
-    int laserPosX = push;
-    int laserPosY = 0;
-    int laserWidth = 50;
-    int laserHeight = 50;
+//    int push = 50;
+//    int laserPosX = push;
 
     Timer timer;
-    Timer laserLoop;
 
 
     Hero hero;
     Lasers lasers;
 
-
     Game(){
+        laserPosX = 0;
+        laserPosY = 0;
         hero = new Hero(heroPosX, heroPosY);
-        lasers = new Lasers(laserPosX,laserPosY);
+        multipleLasers = new MultipleLasers();
+
+//        lasers = new Lasers(laserPosX, laserPosY);
 
         JPanel panel = new JPanel();
 
+        panel.setBackground(Color.black);
         addKeyListener(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Escape the lasers");
@@ -54,18 +62,6 @@ public class Game extends JFrame implements ActionListener, KeyListener {
         timer = new Timer(10,this);
         timer.start();
 
-
-
-        laserLoop = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                lasers.move();
-                repaint();
-            }
-        });
-        laserLoop.start();
-
-
 //        width = 1740; // TODO : Remove this hard coded value, and get the frame's actual width
 //        height = 930;
 
@@ -77,15 +73,17 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     public void paint(Graphics g){
         super.paint(g);
         draw((Graphics2D) g);
+        multipleLasers.draw((Graphics2D) g);
+//        lasers.draw((Graphics2D) g);
+//        lasers.lol((Graphics2D) g);
     }
 
     public void draw(Graphics2D g2d){
         g2d.drawImage(hero.happy, hero.x, hero.y, heroWidth, heroHeight, null);
-        g2d.drawImage(lasers.ball, lasers.x, lasers.y, laserWidth, laserHeight, null);
     }
 
     public void collision(){
-
+        // For checking the collision in the future
     }
 
     public void move(){
@@ -95,13 +93,12 @@ public class Game extends JFrame implements ActionListener, KeyListener {
         if (hero.y <= boardHeight && hero.y >= 0) {
             hero.y += velY;
         }
+//        laserPosX += 2;
+//        laserPosY += 2;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (laserPosX == push) {
-            lasers.x ++;
-        }
         move();
         repaint();
     }
