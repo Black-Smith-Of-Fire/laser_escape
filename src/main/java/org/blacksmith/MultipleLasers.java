@@ -10,10 +10,14 @@ public class MultipleLasers {
 
     MultipleLasers(){
         laserList = new ArrayList<>();
-        lol = new Lasers(620, 500);
+        for (int i = 0; i < 9; i++) {
+            laserList.add(new Lasers(620 + (20 * i), 500 + 100 + (20*i)));
+        }
     }
 
     public void draw(Graphics2D g2d){
-        lol.draw(g2d);
+        for (int i = 0; i < laserList.size(); i++) {
+            laserList.get(i).draw(g2d);
+        }
     }
 }
