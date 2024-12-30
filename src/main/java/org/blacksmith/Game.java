@@ -19,6 +19,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     int boardHeight;
 
     MultipleLasers multipleLasers;
+    MultipleLasers lol;
 
     int velX;
     int velY;
@@ -32,7 +33,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 //    int laserPosX = push;
 
     Timer timer;
-
+    Timer laserLoop;
 
     Hero hero;
     Lasers lasers;
@@ -41,7 +42,8 @@ public class Game extends JFrame implements ActionListener, KeyListener {
         laserPosX = 500;
         laserPosY = 0;
         hero = new Hero(heroPosX, heroPosY);
-        multipleLasers = new MultipleLasers();
+        multipleLasers = new MultipleLasers(10,90,1);
+        lol = new MultipleLasers(1000,0, -1);
 
 //        lasers = new Lasers(laserPosX, laserPosY);
 
@@ -62,6 +64,31 @@ public class Game extends JFrame implements ActionListener, KeyListener {
         timer = new Timer(10,this);
         timer.start();
 
+        laserLoop = new Timer(5, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!multipleLasers.collision(hero.x, hero.y)) {
+                    int push = 0;
+                    if (push != 1){
+                        multipleLasers.push();
+                    }
+                    push ++;
+                    multipleLasers.move();
+                }
+
+                if (!lol.collision(hero.x, hero.y)) {
+                    int push = 0;
+                    if (push != 1){
+                        lol.push();
+                    }
+                    push ++;
+                    lol.move();
+                }
+
+                repaint();
+            }
+        });
+        laserLoop.start();
 //        width = 1740; // TODO : Remove this hard coded value, and get the frame's actual width
 //        height = 930;
 
@@ -73,45 +100,43 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     public void paint(Graphics g){
         super.paint(g);
         draw((Graphics2D) g);
+        Strings((Graphics2D) g);
         multipleLasers.draw((Graphics2D) g);
-//        lasers.draw((Graphics2D) g);
-//        lasers.lol((Graphics2D) g);
+        lol.draw((Graphics2D) g);
     }
 
     public void draw(Graphics2D g2d){
         g2d.drawImage(hero.happy, hero.x, hero.y, heroWidth, heroHeight, null);
     }
 
-    public void collision(){
-        // For checking the collision in the future
-        System.out.println("The position of hero is : " + hero.x);
-//        if (hero.x < multipleLasers.x) {
-//            System.out.println("X coordinates have intersected");
-//        }
+    public void Strings(Graphics2D g2d){
+        g2d.setColor(Color.white);
+        g2d.setFont(new Font("Arial", Font.PLAIN, 30));
+        g2d.drawString("lol", 1700,100);
     }
 
+
     public void move(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                wallCollision();
+            }
+        }).start();
+    }
+
+    public void wallCollision(){
         if (hero.x <= boardWidth && hero.x >= 0) {
             hero.x += velX;
         }
         if (hero.y <= boardHeight && hero.y >= 0) {
             hero.y += velY;
         }
-//        laserPosX += 2;
-//        laserPosY += 2;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         move();
-        if (!multipleLasers.collision(hero.x, hero.y)) {
-        int push = 0;
-        if (push != 1){
-            multipleLasers.push();
-        }
-        push ++;
-        multipleLasers.move();
-        }
         repaint();
     }
 
