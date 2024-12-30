@@ -17,11 +17,13 @@ public class Lasers{
     int boardWidth = 1860;
     int boardHeight = 1010;
 
+    Image star;
     ArrayList<Items> laserList;
 
-    Lasers(int x, int y){
+    Lasers(int x, int y, Image star){
         this.x = x;
         this.y = y;
+        this.star = star;
 
         laserList = new ArrayList<>();
         laserList.add(new Items(x,y));
@@ -33,7 +35,6 @@ public class Lasers{
     }
 
     public void draw(Graphics2D g2d){
-        Image star = new ImageIcon("characters/enemy/starRed/redRect0.png").getImage();
         g2d.drawImage(star, x, y, null);
     }
 
