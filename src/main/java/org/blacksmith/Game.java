@@ -73,7 +73,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     public void paint(Graphics g){
         super.paint(g);
         draw((Graphics2D) g);
-        multipleLasers.lol((Graphics2D) g);
+        multipleLasers.draw((Graphics2D) g);
 //        lasers.draw((Graphics2D) g);
 //        lasers.lol((Graphics2D) g);
     }
@@ -116,8 +116,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
