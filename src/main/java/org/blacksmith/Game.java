@@ -8,8 +8,8 @@ import java.util.Random;
 
 public class Game extends JFrame implements ActionListener, KeyListener {
 
-    int heroPosX = 120;
-    int heroPosY = 120;
+    int heroPosX = 520;
+    int heroPosY = 620;
     int heroWidth = 200;
     int heroHeight = 200;
 
@@ -27,7 +27,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     int laserPosY;
 
     Random random = new Random();
-    int push = random.nextInt(0, 1750);
+//    int push = random.nextInt(0, 1750);
 //    int push = 50;
 //    int laserPosX = push;
 
@@ -84,6 +84,10 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
     public void collision(){
         // For checking the collision in the future
+        System.out.println("The position of hero is : " + hero.x);
+//        if (hero.x < multipleLasers.x) {
+//            System.out.println("X coordinates have intersected");
+//        }
     }
 
     public void move(){
@@ -100,18 +104,19 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         move();
-        int lol = 0;
-        if (lol != 1){
+        if (!multipleLasers.collision(hero.x, hero.y)) {
+        int push = 0;
+        if (push != 1){
             multipleLasers.push();
         }
-        lol ++;
+        push ++;
         multipleLasers.move();
+        }
         repaint();
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
