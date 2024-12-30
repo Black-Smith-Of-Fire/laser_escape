@@ -39,23 +39,31 @@ public class Lasers{
     }
 
     public void move(){
-            if (x <= 0) {
-                velX += 2;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                wallCollision();
             }
+        }).start();
+    }
 
-            if (y <= 0) {
-                velY += 2;
-            }
+    public void wallCollision(){
+        if (x <= 0) {
+            velX += 5;
+        }
 
-            if (x >= boardWidth) {
-                velX -= 2;
-             }
+        if (y <= 0) {
+            velY += 5;
+        }
 
-            if (y >= boardHeight) {
-                velY -= 2;
-            }
+        if (x >= boardWidth) {
+            velX -= 5;
+        }
+
+        if (y >= boardHeight) {
+            velY -= 5;
+        }
         x += velX;
         y += velY;
     }
-
 }
