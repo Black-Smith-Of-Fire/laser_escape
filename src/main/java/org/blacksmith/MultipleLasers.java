@@ -6,19 +6,17 @@ import java.util.ArrayList;
 
 public class MultipleLasers {
     ArrayList<Lasers> laserList;
-    Lasers lasers = new Lasers(50,50);
+    Image star;
 
     MultipleLasers(){
         laserList = new ArrayList<>();
-        laserList.add(new Lasers(500,90));
+        laserList.add(new Lasers(500,90, new ImageIcon("characters/enemy/starRed/redRect0.png").getImage()));
         for (int i = 1; i < 9; i++) {
-            laserList.add(new Lasers(laserList.get(i-1).x + 14,laserList.get(i-1).y + 13));
+            star = new ImageIcon("characters/enemy/starRed/redRect" + i + ".png").getImage();
+            laserList.add(new Lasers(laserList.get(i-1).x + 14,laserList.get(i-1).y + 13, star));
         }
     }
 
-    public void lol(Graphics2D g2d){
-        lasers.draw(g2d);
-    }
 
     public void draw(Graphics2D g2d){
         for (int i = 0; i < laserList.size(); i++) {
@@ -31,8 +29,6 @@ public class MultipleLasers {
             laserList.get(i).x ++;
             laserList.get(i).y ++;
         }
-//        lasers.x ++;
-//        lasers.y ++;
     }
 
     public boolean collision(int x, int y){
@@ -51,6 +47,5 @@ public class MultipleLasers {
         for (int i = 0; i < 9; i++) {
             laserList.get(i).move();
         }
-        lasers.move();
     }
 }
