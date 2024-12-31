@@ -3,8 +3,6 @@ package org.blacksmith;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 
@@ -14,8 +12,6 @@ public class Game extends Canvas implements ActionListener, KeyListener, Runnabl
     Canvas panel;
     private boolean running;
     private Thread thread;
-
-    private BufferedImage image = new BufferedImage(320,1000, BufferedImage.TYPE_INT_RGB);
 
     int heroPosX = 990;
     int heroPosY = 920;
@@ -181,9 +177,7 @@ public class Game extends Canvas implements ActionListener, KeyListener, Runnabl
     }
 
     private void render(){
-        Graphics g = image.getGraphics();
 
-        g.drawImage(hero.happy, 50, 620, this);
 //        g.dispose();
     }
 
