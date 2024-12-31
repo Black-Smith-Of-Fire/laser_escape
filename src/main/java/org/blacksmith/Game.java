@@ -3,6 +3,7 @@ package org.blacksmith;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.Socket;
 import java.util.Random;
 
 
@@ -46,6 +47,7 @@ public class Game extends Canvas implements ActionListener, KeyListener, Runnabl
 
     Game(){
         running = false;
+        start();
         laserPosX = 500;
         laserPosY = 0;
         hero = new Hero(heroPosX, heroPosY);
@@ -165,8 +167,9 @@ public class Game extends Canvas implements ActionListener, KeyListener, Runnabl
                 updates ++;
                 delta--;
             }
-            render();
+//            render();
             frames++;
+            System.out.println("This is working");
 
         }
         stop();
@@ -176,8 +179,9 @@ public class Game extends Canvas implements ActionListener, KeyListener, Runnabl
 
     }
 
-    private void render(){
-
+    private void render(Graphics g){
+        super.paint(g);
+//        draw((Graphics2D) );
 //        g.dispose();
     }
 
