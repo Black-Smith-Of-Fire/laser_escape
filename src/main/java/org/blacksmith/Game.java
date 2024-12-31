@@ -8,8 +8,8 @@ import java.util.Random;
 
 public class Game extends JFrame implements ActionListener, KeyListener {
 
-    int heroPosX = 520;
-    int heroPosY = 620;
+    int heroPosX = 990;
+    int heroPosY = 920;
     int heroWidth = 200;
     int heroHeight = 200;
 
@@ -34,16 +34,18 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
     Timer timer;
     Timer laserLoop;
+    Timer scoreLoop;
 
     Hero hero;
-    Lasers lasers;
+    int score;
 
     Game(){
         laserPosX = 500;
         laserPosY = 0;
         hero = new Hero(heroPosX, heroPosY);
         multipleLasers = new MultipleLasers(10,90,1);
-        lol = new MultipleLasers(1000,0, -1);
+        lol = new MultipleLasers(1500,0, -1);
+        score = 0;
 
 //        lasers = new Lasers(laserPosX, laserPosY);
 
@@ -64,6 +66,14 @@ public class Game extends JFrame implements ActionListener, KeyListener {
         timer = new Timer(10,this);
         timer.start();
 
+        scoreLoop = new Timer(150, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                score ++;
+            }
+        });
+        scoreLoop.start();
+
         laserLoop = new Timer(5, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,6 +85,11 @@ public class Game extends JFrame implements ActionListener, KeyListener {
                     push ++;
                     multipleLasers.move();
                 }
+//                else {
+//                    timer.stop();
+//                    scoreLoop.stop();
+//                    laserLoop.stop();
+//                }
 
                 if (!lol.collision(hero.x, hero.y)) {
                     int push = 0;
@@ -112,7 +127,7 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     public void Strings(Graphics2D g2d){
         g2d.setColor(Color.white);
         g2d.setFont(new Font("Arial", Font.PLAIN, 30));
-        g2d.drawString("lol", 1700,100);
+        g2d.drawString("" + score, 1700,100);
     }
 
 
@@ -128,9 +143,18 @@ public class Game extends JFrame implements ActionListener, KeyListener {
     public void wallCollision(){
         if (hero.x <= boardWidth && hero.x >= 0) {
             hero.x += velX;
+        } else if (hero.x <= 0) {
+            hero.x += 1;
+        } else if (hero.x >= boardWidth) {
+            hero.x -= 1;
         }
+
         if (hero.y <= boardHeight && hero.y >= 0) {
             hero.y += velY;
+        } else if (hero.y <= 0) {
+            hero.y += 1;
+        } else if (hero.y >= boardHeight) {
+            hero.y -= 1;
         }
     }
 
