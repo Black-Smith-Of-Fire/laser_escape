@@ -6,7 +6,10 @@ import java.awt.event.*;
 import java.util.Random;
 
 
-public class Game extends JFrame implements ActionListener, KeyListener {
+public class Game extends Canvas implements ActionListener, KeyListener {
+
+    JFrame jFrame;
+    Canvas panel;
 
     int heroPosX = 990;
     int heroPosY = 920;
@@ -49,18 +52,19 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
 //        lasers = new Lasers(laserPosX, laserPosY);
 
-        JPanel panel = new JPanel();
+        panel = new Canvas();
+        jFrame = new JFrame();
 
         panel.setBackground(Color.black);
-        addKeyListener(this);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Escape the lasers");
-        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        add(panel);
-        pack();
+        panel.addKeyListener(this);
+        jFrame.add(panel);
+        jFrame.pack();
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setTitle("Escape the lasers");
+        jFrame.setExtendedState(jFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
 
-        setVisible(true);
+        jFrame.setVisible(true);
 
 
         timer = new Timer(10,this);
