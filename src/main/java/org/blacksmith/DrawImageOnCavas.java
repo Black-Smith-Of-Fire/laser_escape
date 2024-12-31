@@ -78,7 +78,7 @@ public class DrawImageOnCavas implements Runnable {
 
     private void init() {
         Display = new Display(tuade, dai, rong);
-        testImage = ImageLoader.loadImage("texture/Lilong.png");
+        testImage = ImageLoader.loadImage("characters/hero/happy_hero.png");
     }
 
     public synchronized void start() {
