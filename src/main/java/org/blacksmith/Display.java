@@ -11,10 +11,10 @@ public class Display {
     private String title;
     private int width, height;
 
-    public Display(String tuade, int rong, int dai) {
-        this.title = tuade;
-        this.width = dai;
-        this.height = rong;
+    public Display() {
+        title = "LOL";
+        width = 1700;
+        height = 900;
         initCanvas();
     }
 
