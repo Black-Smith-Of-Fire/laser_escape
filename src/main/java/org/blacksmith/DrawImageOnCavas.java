@@ -9,7 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class DrawImageOnCavas implements Runnable {
-    private Display Display;
+    private Game game;
     private Thread t;
     private boolean running;
     public int dai, rong;
@@ -38,16 +38,16 @@ public class DrawImageOnCavas implements Runnable {
     }
 
     private void render() {
-        bs = Display.getCanvas().getBufferStrategy();
+        bs = game.getCanvas().getBufferStrategy();
 
         if (bs == null) {
             System.out.println("bs is null....");
-            Display.getCanvas().createBufferStrategy(3);
+            game.getCanvas().createBufferStrategy(3);
             return;
         }
 
 
-        g = Display.getCanvas().getGraphics();
+        g = game.getCanvas().getGraphics();
         g.drawImage(testImage, 20, 20, null);
     }
 
@@ -77,7 +77,7 @@ public class DrawImageOnCavas implements Runnable {
     }
 
     private void init() {
-        Display = new Display(tuade, dai, rong);
+        game = new Game();
         testImage = ImageLoader.loadImage("characters/hero/happy_hero.png");
     }
 
