@@ -7,12 +7,12 @@ import java.net.Socket;
 import java.util.Random;
 
 
-public class Game extends Canvas implements ActionListener, KeyListener, Runnable {
+public class Game extends Canvas implements ActionListener, KeyListener {
 
-    JFrame jFrame;
-    Canvas panel;
-    private boolean running;
-    private Thread thread;
+    private JFrame jframe;
+    private Canvas canvas;
+    private String title;
+    private int width, height;
 
     int heroPosX = 990;
     int heroPosY = 920;
@@ -46,8 +46,7 @@ public class Game extends Canvas implements ActionListener, KeyListener, Runnabl
     int score;
 
     Game(){
-        running = false;
-        start();
+        initCanvas();
         laserPosX = 500;
         laserPosY = 0;
         hero = new Hero(heroPosX, heroPosY);
@@ -57,19 +56,19 @@ public class Game extends Canvas implements ActionListener, KeyListener, Runnabl
 
 //        lasers = new Lasers(laserPosX, laserPosY);
 
-        panel = new Canvas();
-        jFrame = new JFrame();
-
-        panel.setBackground(Color.black);
-        panel.addKeyListener(this);
-        jFrame.add(panel);
-        jFrame.pack();
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setTitle("Escape the lasers");
-        jFrame.setExtendedState(jFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-
-
-        jFrame.setVisible(true);
+//        panel = new Canvas();
+//        jFrame = new JFrame();
+//
+//        panel.setBackground(Color.black);
+//        panel.addKeyListener(this);
+//        jFrame.add(panel);
+//        jFrame.pack();
+//        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        jFrame.setTitle("Escape the lasers");
+//        jFrame.setExtendedState(jFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+//
+//
+//        jFrame.setVisible(true);
 
 
         timer = new Timer(10,this);
@@ -121,68 +120,34 @@ public class Game extends Canvas implements ActionListener, KeyListener, Runnabl
 
     }
 
-    private synchronized void start(){
-        if (running) {
-            return;
-        }
-        else {
-            running = true;
-            thread = new Thread(this);
-            thread.start();
-        }
-    }
+    private void initCanvas() {
 
-    private synchronized void stop(){
-        if (!running) {
-            return;
-        }
-        else {
-            running = false;
-            try {
-                thread.join();
-            }
-            catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            System.exit(1);
-        }
-    }
+        jframe = new JFrame("Lol");
+        jframe.setSize(1720,900);
+        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jframe.setResizable(false);
+        jframe.setVisible(true);
+        jframe.setLocationRelativeTo(null);
 
-    public void run(){
+        canvas = new Canvas();
+        canvas.setPreferredSize(new Dimension(1720,900));
+        canvas.setMaximumSize(new Dimension(1720,900));
+        canvas.setMinimumSize(new Dimension(1720,900));
 
-        long lastTime = System.nanoTime();
-        final double amountOfTicks = 60.0;
-        double ns = 1000000000 / amountOfTicks;
-        double delta = 0;
-        int updates = 0;
-        int frames= 0;
-        long timer1 = System.currentTimeMillis();
-
-        while (running) {
-            long now = System.nanoTime();
-            delta += (now - lastTime) / ns;
-            lastTime = now;
-            if (delta >= 1){
-                tick();
-                updates ++;
-                delta--;
-            }
-//            render();
-            frames++;
-            System.out.println("This is working");
-
-        }
-        stop();
-    }
-
-    private void tick(){
+        jframe.add(canvas);
+        jframe.pack();
 
     }
 
-    private void render(Graphics g){
-        super.paint(g);
-//        draw((Graphics2D) );
-//        g.dispose();
+    public Canvas getCanvas() {
+
+        if(canvas == null)
+        {
+            System.out.println("Canvas is null");
+            return null;
+        }
+
+        return canvas;
     }
 
     public void paint(Graphics g){
