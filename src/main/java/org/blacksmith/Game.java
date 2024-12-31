@@ -3,13 +3,19 @@ package org.blacksmith;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 
-public class Game extends Canvas implements ActionListener, KeyListener {
+public class Game extends Canvas implements ActionListener, KeyListener, Runnable {
 
     JFrame jFrame;
     Canvas panel;
+    private boolean running;
+    private Thread thread;
+
+    private BufferedImage image = new BufferedImage(320,1000, BufferedImage.TYPE_INT_RGB);
 
     int heroPosX = 990;
     int heroPosY = 920;
@@ -43,6 +49,7 @@ public class Game extends Canvas implements ActionListener, KeyListener {
     int score;
 
     Game(){
+        running = false;
         laserPosX = 500;
         laserPosY = 0;
         hero = new Hero(heroPosX, heroPosY);
@@ -114,6 +121,70 @@ public class Game extends Canvas implements ActionListener, KeyListener {
         boardWidth = 1750;
         boardHeight = 940;
 
+    }
+
+    private synchronized void start(){
+        if (running) {
+            return;
+        }
+        else {
+            running = true;
+            thread = new Thread(this);
+            thread.start();
+        }
+    }
+
+    private synchronized void stop(){
+        if (!running) {
+            return;
+        }
+        else {
+            running = false;
+            try {
+                thread.join();
+            }
+            catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            System.exit(1);
+        }
+    }
+
+    public void run(){
+
+        long lastTime = System.nanoTime();
+        final double amountOfTicks = 60.0;
+        double ns = 1000000000 / amountOfTicks;
+        double delta = 0;
+        int updates = 0;
+        int frames= 0;
+        long timer1 = System.currentTimeMillis();
+
+        while (running) {
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            lastTime = now;
+            if (delta >= 1){
+                tick();
+                updates ++;
+                delta--;
+            }
+            render();
+            frames++;
+
+        }
+        stop();
+    }
+
+    private void tick(){
+
+    }
+
+    private void render(){
+        Graphics g = image.getGraphics();
+
+        g.drawImage(hero.happy, 50, 620, this);
+//        g.dispose();
     }
 
     public void paint(Graphics g){
