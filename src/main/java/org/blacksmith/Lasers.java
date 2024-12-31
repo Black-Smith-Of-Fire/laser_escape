@@ -38,18 +38,24 @@ public class Lasers{
         g2d.drawImage(star, x, y, null);
     }
 
-    public void move(){
+    public void move(
+//            int dir
+    ){
         new Thread(new Runnable() {
             @Override
             public void run() {
-                wallCollision();
+                wallCollision(
+//                        dir
+                );
             }
         }).start();
     }
 
-    public void wallCollision(){
+    public void wallCollision(
+//            int dir
+    ){
         if (x <= 0) {
-            velX += 5;
+            velX +=  5;
         }
 
         if (y <= 0) {
@@ -57,7 +63,7 @@ public class Lasers{
         }
 
         if (x >= boardWidth) {
-            velX -= 5;
+            velX -=  5;
         }
 
         if (y >= boardHeight) {
