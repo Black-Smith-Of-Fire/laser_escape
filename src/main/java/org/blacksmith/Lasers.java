@@ -38,22 +38,16 @@ public class Lasers{
         g2d.drawImage(star, x, y, null);
     }
 
-    public void move(
-//            int dir
-    ){
+    public void move(){
         new Thread(new Runnable() {
             @Override
             public void run() {
-                wallCollision(
-//                        dir
-                );
+                wallCollision();
             }
         }).start();
     }
 
-    public void wallCollision(
-//            int dir
-    ){
+    public void wallCollision(){
         if (x <= 0) {
             velX +=  5;
         }
