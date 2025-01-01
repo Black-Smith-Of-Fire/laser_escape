@@ -39,7 +39,6 @@ public class Lasers{
     }
 
     public void move(
-//            int dir
     ){
         new Thread(new Runnable() {
             @Override
@@ -51,9 +50,7 @@ public class Lasers{
         }).start();
     }
 
-    public void wallCollision(
-//            int dir
-    ){
+    public void wallCollision(){
         if (x <= 0) {
             velX +=  5;
         }
