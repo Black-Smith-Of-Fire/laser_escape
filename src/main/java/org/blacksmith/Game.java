@@ -15,8 +15,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     Random randomDir = new Random();
     int randomX = randomDir.nextInt(2);
-    int boardWidth;
-    int boardHeight;
 
     MultipleLasers multipleLasers;
     MultipleLasers lol;
@@ -108,8 +106,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 //        width = 1740; // TODO : Remove this hard coded value, and get the frame's actual width
 //        height = 930;
 
-        boardWidth = 1750;
-        boardHeight = 940;
 
     }
 
@@ -137,28 +133,12 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                wallCollision();
+                hero.wallCollision();
             }
         }).start();
     }
 
-    public void wallCollision(){
-        if (hero.x <= boardWidth && hero.x >= 0) {
-            hero.x += velX;
-        } else if (hero.x <= 0) {
-            hero.x += 1;
-        } else if (hero.x >= boardWidth) {
-            hero.x -= 1;
-        }
 
-        if (hero.y <= boardHeight && hero.y >= 0) {
-            hero.y += velY;
-        } else if (hero.y <= 0) {
-            hero.y += 1;
-        } else if (hero.y >= boardHeight) {
-            hero.y -= 1;
-        }
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -172,32 +152,32 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP){
-            velY = -2;
+            hero.velY = -2;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN){
-            velY = 2;
+            hero.velY = 2;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT){
-            velX = -2;
+            hero.velX = -2;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-            velX = 2;
+            hero.velX = 2;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP){
-            velY = 0;
+            hero.velY = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN){
-            velY = 0;
+            hero.velY = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT){
-            velX = 0;
+            hero.velX = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-            velX = 0;
+            hero.velX = 0;
         }
     }
 }
