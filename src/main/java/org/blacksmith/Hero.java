@@ -33,6 +33,15 @@ public class Hero {
         g2d.drawImage(happy, x, y, null);
     }
 
+    public void move(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                wallCollision();
+            }
+        }).start();
+    }
+
     public void wallCollision(){
         if (x <= boardWidth && x >= 0) {
             x += velX;
