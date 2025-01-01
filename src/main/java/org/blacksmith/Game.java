@@ -134,18 +134,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     }
 
 
-    public void move(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                hero.wallCollision();
-            }
-        }).start();
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        move();
+        hero.move();
         repaint();
     }
 
