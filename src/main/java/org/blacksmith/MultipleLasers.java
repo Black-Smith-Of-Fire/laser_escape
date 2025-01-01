@@ -8,6 +8,8 @@ public class MultipleLasers {
     ArrayList<Lasers> laserList;
     Image star;
     int dir;
+    int width = 179;
+    int height = 128;
 
     MultipleLasers(int x, int y, int dir){
         this.dir = dir;
@@ -46,8 +48,8 @@ public class MultipleLasers {
         for (int i = 0; i < 9; i++) {
             if (x <= laserList.get(i).x &&
                     y <= laserList.get(i).y &&
-                    (x + 179) > laserList.get(i).x &&
-                    (y + 128) > laserList.get(i).y) {
+                    (x + width) > laserList.get(i).x &&
+                    (y + height) > laserList.get(i).y) {
                 return true;
             }
         }
