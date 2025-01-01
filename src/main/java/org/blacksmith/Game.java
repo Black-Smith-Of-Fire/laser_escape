@@ -15,8 +15,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     int heroPosX;
     int heroPosY;
-    int heroWidth = 200;
-    int heroHeight = 200;
 
     int laserPosX;
     int laserPosY;
@@ -122,6 +120,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         hero.draw((Graphics2D) g);
+        ai.draw((Graphics2D) g);
         Strings((Graphics2D) g);
         multipleLasers.draw((Graphics2D) g);
         lol.draw((Graphics2D) g);
@@ -134,10 +133,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     }
 
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         hero.move();
+        ai.follow(hero.x, hero.y);
         repaint();
     }
 
@@ -148,15 +147,19 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP){
             hero.velY = -2;
+            ai.velY = -2;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN){
             hero.velY = 2;
+            ai.velY = 2;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT){
             hero.velX = -2;
+            ai.velX = -2;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT){
             hero.velX = 2;
+            ai.velX = 2;
         }
     }
 
