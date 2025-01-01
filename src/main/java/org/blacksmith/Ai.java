@@ -17,13 +17,28 @@ public class Ai {
         this.x = x;
         this.y = y;
 
-        happy = new ImageIcon("characters/hero/happy_hero.png").getImage();
+        happy = new ImageIcon("characters/enemy/ai/ai_3.png").getImage();
         shocked = new ImageIcon("characters/hero/shocked_hero.png").getImage();
         worried = new ImageIcon("characters/hero/worried_hero.png").getImage();
 
     }
-    public void follow() {
-        x += velX;
-        y += velY;
+
+    public void draw(Graphics2D g2d){
+        g2d.drawImage(happy, x, y, null);
+    }
+
+    public void follow(int heroX, int heroY) {
+        if (heroX > x) {
+            x += 1;
+        }
+        if (heroX < x) {
+            x -= 1;
+        }
+        if (heroY > y) {
+            y += 1;
+        }
+        if (heroY < y) {
+            y -= 1;
+        }
     }
 }
