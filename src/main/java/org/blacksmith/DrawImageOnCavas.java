@@ -17,6 +17,7 @@ public class DrawImageOnCavas implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
     private BufferedImage testImage;
+    int x = 0, y = 0;
 
     public DrawImageOnCavas(String tuade, int dai, int rong) {
         this.dai = dai;
@@ -43,23 +44,23 @@ public class DrawImageOnCavas implements Runnable {
         if (bs == null) {
             System.out.println("bs is null....");
             game.getCanvas().createBufferStrategy(3);
+
             return;
         }
 
-
         g = game.getCanvas().getGraphics();
-        g.drawImage(testImage, 20, 20, null);
+        g.drawImage(testImage, x, y, null);
+        g.dispose();
     }
 
     private void tick() {
-
+        x ++;
+        y ++;
     }
 
-    private static final class ImageLoader
-    {
+    private static final class ImageLoader {
 
-        static BufferedImage loadImage(String fileName)
-        {
+        static BufferedImage loadImage(String fileName){
             BufferedImage bi = null;
             //System.err.println("....setimg...." + fileName);
 
