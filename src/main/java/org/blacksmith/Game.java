@@ -11,7 +11,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     MultipleLasers multipleLasers;
     MultipleLasers lol;
     Hero hero;
-    Ai ai;
+    MultipleAi ai;
 
     int heroPosX;
     int heroPosY;
@@ -46,7 +46,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         aiPosX = 190;
         aiPosY = 1000;
-        ai = new Ai(aiPosX, aiPosY);
+        ai = new MultipleAi(aiPosX, aiPosY);
         hero = new Hero(heroPosX, heroPosY);
         multipleLasers = new MultipleLasers(10,90,1);
         lol = new MultipleLasers(1500,0, -1);
@@ -147,19 +147,15 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP){
             hero.velY = -2;
-            ai.velY = -2;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN){
             hero.velY = 2;
-            ai.velY = 2;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT){
             hero.velX = -2;
-            ai.velX = -2;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT){
             hero.velX = 2;
-            ai.velX = 2;
         }
     }
 
