@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.util.Random;
 
 
-public class Game extends JFrame implements ActionListener, KeyListener {
+public class Game extends JPanel implements ActionListener, KeyListener {
 
     int heroPosX = 990;
     int heroPosY = 920;
@@ -49,18 +49,19 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
 //        lasers = new Lasers(laserPosX, laserPosY);
 
-        JPanel panel = new JPanel();
+        this.setBackground(Color.black);
+//        paintComponents(getGraphics());
 
-        panel.setBackground(Color.black);
-        addKeyListener(this);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Escape the lasers");
-        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        add(panel);
-        pack();
+        JFrame jFrame = new JFrame();
+        jFrame.addKeyListener(this);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setTitle("Escape the lasers");
+        jFrame.setExtendedState(jFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        jFrame.add(this);
+        jFrame.pack();
 
 
-        setVisible(true);
+        jFrame.setVisible(true);
 
 
         timer = new Timer(10,this);
@@ -112,8 +113,9 @@ public class Game extends JFrame implements ActionListener, KeyListener {
 
     }
 
-    public void paint(Graphics g){
-        super.paint(g);
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
         draw((Graphics2D) g);
         Strings((Graphics2D) g);
         multipleLasers.draw((Graphics2D) g);
