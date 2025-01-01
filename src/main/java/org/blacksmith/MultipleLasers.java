@@ -46,8 +46,8 @@ public class MultipleLasers {
         for (int i = 0; i < 9; i++) {
             if (x <= laserList.get(i).x &&
                     y <= laserList.get(i).y &&
-                    (x + 200) > laserList.get(i).x &&
-                    (y + 200) > laserList.get(i).y) {
+                    (x + 179) > laserList.get(i).x &&
+                    (y + 128) > laserList.get(i).y) {
                 return true;
             }
         }
