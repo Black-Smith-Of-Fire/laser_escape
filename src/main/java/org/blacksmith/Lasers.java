@@ -43,9 +43,7 @@ public class Lasers{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                wallCollision(
-//                        dir
-                );
+                wallCollision();
             }
         }).start();
     }
