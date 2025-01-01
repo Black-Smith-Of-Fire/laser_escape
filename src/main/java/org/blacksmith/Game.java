@@ -8,22 +8,25 @@ import java.util.Random;
 
 public class Game extends JPanel implements ActionListener, KeyListener {
 
-    int heroPosX = 990;
-    int heroPosY = 920;
+    MultipleLasers multipleLasers;
+    MultipleLasers lol;
+    Hero hero;
+    Ai ai;
+
+    int heroPosX;
+    int heroPosY;
     int heroWidth = 200;
     int heroHeight = 200;
+
+    int laserPosX;
+    int laserPosY;
+
+    int aiPosX;
+    int aiPosY;
 
     Random randomDir = new Random();
     int randomX = randomDir.nextInt(2);
 
-    MultipleLasers multipleLasers;
-    MultipleLasers lol;
-
-    int velX;
-    int velY;
-
-    int laserPosX;
-    int laserPosY;
 
     Random random = new Random();
 //    int push = random.nextInt(0, 1750);
@@ -34,12 +37,18 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     Timer laserLoop;
     Timer scoreLoop;
 
-    Hero hero;
     int score;
 
     Game(){
         laserPosX = 500;
         laserPosY = 0;
+
+        heroPosX = 500;
+        heroPosY = 500;
+
+        aiPosX = 190;
+        aiPosY = 1000;
+        ai = new Ai(aiPosX, aiPosY);
         hero = new Hero(heroPosX, heroPosY);
         multipleLasers = new MultipleLasers(10,90,1);
         lol = new MultipleLasers(1500,0, -1);
@@ -137,8 +146,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             }
         }).start();
     }
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
