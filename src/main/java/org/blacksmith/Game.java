@@ -121,14 +121,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        draw((Graphics2D) g);
+        hero.draw((Graphics2D) g);
         Strings((Graphics2D) g);
         multipleLasers.draw((Graphics2D) g);
         lol.draw((Graphics2D) g);
-    }
-
-    public void draw(Graphics2D g2d){
-        g2d.drawImage(hero.happy, hero.x, hero.y, heroWidth, heroHeight, null);
     }
 
     public void Strings(Graphics2D g2d){
