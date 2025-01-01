@@ -28,6 +28,11 @@ public class Hero {
         worried = new ImageIcon("characters/hero/worried_hero.png").getImage();
 
     }
+
+    public void draw(Graphics2D g2d){
+        g2d.drawImage(happy, x, y, null);
+    }
+
     public void wallCollision(){
         if (x <= boardWidth && x >= 0) {
             x += velX;
