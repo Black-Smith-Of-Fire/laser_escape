@@ -28,6 +28,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     int randomX = randomDir.nextInt(2);
     int healthScore = 100;
     int healthWidth = 500;
+    boolean gameOver = false;
 
 
 //    int push = 50;
@@ -114,6 +115,12 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 healthWidth += deduct;
                 healthScore += scoreDeduct;
 
+                if (healthScore < 0) {
+                    healthLoop.stop();
+                    laserLoop.stop();
+                    scoreLoop.stop();
+                    timer.stop();
+                }
 
             }
         });
@@ -149,6 +156,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         g.setColor(Color.white);
         g.setFont(new Font("Arial", Font.PLAIN, 30));
         g.drawString(healthScore + " %",560,65);
+        if (gameOver) {
+            g.drawString(0 + " %",0,65);
+        }
     }
     @Override
     protected void paintComponent(Graphics g){
