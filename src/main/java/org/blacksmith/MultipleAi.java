@@ -16,8 +16,8 @@ public class MultipleAi {
         laserList.add(new Ai(x, y, new ImageIcon("characters/enemy/ai/ai_3.png").getImage()));
 
         dir = laserList.get(0).xDir;
-        for (int i = 1; i < 9; i++) {
-        laserList.add(new Ai(laserList.get(i - 1).x - 14,laserList.get(i - 1).y - 13, new ImageIcon("characters/enemy/starRed/redRect" + i + ".png").getImage())); //
+        for (int i = 1; i < 3; i++) {
+        laserList.add(new Ai(laserList.get(i - 1).x - 14,laserList.get(i - 1).y - 13, new ImageIcon("characters/enemy/ai/ai_" + i + ".png").getImage())); //
         }
     }
 
