@@ -38,16 +38,15 @@ public class MultipleLasers {
     }
 
     public void pushy(){
-        for (int i = 0; i < 9; i++) {
-            laserList.get(i).x += (dir * 2);
-            laserList.get(i).y += 2;
-        }
+            laserList.get(0).x += (dir * 2);
+            laserList.get(0).y += 2;
+
     }
 
     public boolean collision(int x, int y){
         for (int i = 0; i < 9; i++) {
-            if (x <= laserList.get(i).x &&
-                    y <= laserList.get(i).y &&
+            if (laserList.get(i).x >= x &&
+                     laserList.get(i).y >= y &&
                     (x + width) > laserList.get(i).x &&
                     (y + height) > laserList.get(i).y) {
                 return true;
@@ -66,8 +65,22 @@ public class MultipleLasers {
     }
 
     public void movey(){
-        for (int i = 0; i < 9; i++) {
-            laserList.get(i).move();
+            laserList.get(0).move();
+
+        for (int i = 1; i < laserList.size(); i++) {
+            if (laserList.get(i - 1).x > laserList.get(i).x + 14) {
+                laserList.get(i).x += 2;
+            }
+            if (laserList.get(i - 1).x + 29 < laserList.get(i).x + 14) {
+                laserList.get(i).x -= 2;
+            }
+            if (laserList.get(i - 1).y > laserList.get(i).y + 13) {
+                laserList.get(i).y += 2;
+            }
+            if (laserList.get(i - 1).y + 26 < laserList.get(i).y + 13) {
+                laserList.get(i).y -= 2;
+            }
+        }
         }
     }
-}
+
