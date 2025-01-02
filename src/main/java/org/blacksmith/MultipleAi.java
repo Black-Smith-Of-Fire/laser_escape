@@ -16,19 +16,18 @@ public class MultipleAi {
         laserList.add(new Ai(x, y, new ImageIcon("characters/enemy/ai/ai_3.png").getImage()));
 
         dir = laserList.get(0).xDir;
-        laserList.add(new Ai(laserList.get(0).x - 14,laserList.get(0).y - 13, new ImageIcon("characters/enemy/starRed/redRect8.png").getImage())); //
-//        for (int i = 1; i < 9; i++) {
-//            laserList.add(new Ai(laserList.get(i-1).x + (dir *14),laserList.get(i-1).y + 13)); //
-//        }
+        for (int i = 1; i < 9; i++) {
+        laserList.add(new Ai(laserList.get(i - 1).x - 14,laserList.get(i - 1).y - 13, new ImageIcon("characters/enemy/starRed/redRect" + i + ".png").getImage())); //
+        }
     }
 
 
     public void draw(Graphics2D g2d){
-        laserList.get(0).draw(g2d);
-        laserList.get(1).draw(g2d);
-//        for (int i = 0; i < laserList.size(); i++) {
-//            laserList.get(i).draw(g2d);
-//        }
+//        laserList.get(0).draw(g2d);
+//        laserList.get(1).draw(g2d);
+        for (int i = 0; i < laserList.size(); i++) {
+            laserList.get(i).draw(g2d);
+        }
     }
 
 
@@ -48,17 +47,20 @@ public class MultipleAi {
 
     public void follow(int x, int y){
         laserList.get(0).follow(x, y);
-        if (laserList.get(0).x > laserList.get(1).x + 14) {
-            laserList.get(1).x ++;
+        for (int i = 1; i < laserList.size(); i++) {
+
+        if (laserList.get(i - 1).x > laserList.get(i).x + 14) {
+            laserList.get(i).x ++;
         }
-        if (laserList.get(0).x + 29 < laserList.get(1).x + 14) {
-            laserList.get(1).x --;
+        if (laserList.get(i - 1).x + 29 < laserList.get(i).x + 14) {
+            laserList.get(i).x --;
         }
-        if (laserList.get(0).y > laserList.get(1).y + 13) {
-            laserList.get(1).y ++;
+        if (laserList.get(i - 1).y > laserList.get(i).y + 13) {
+            laserList.get(i).y ++;
         }
-        if (laserList.get(0).y + 26 < laserList.get(1).y + 13) {
-            laserList.get(1).y --;
+        if (laserList.get(i - 1).y + 26 < laserList.get(i).y + 13) {
+            laserList.get(i).y --;
+        }
         }
 //        laserList.get(1).follow(laserList.get(0).x - (dir * 14), laserList.get(0).y + 13);
 //        for (int i = 0; i < 9; i++) {
