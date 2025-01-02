@@ -29,14 +29,20 @@ public class MultipleAi {
 
 
     public boolean collision(int x, int y){
+//        for (int i = 0; i < laserList.size(); i++) {
+//            if (laserList.get(i).x >= x &&
+//                    laserList.get(i).y >= y &&
+//                    (x + width) > laserList.get(i).x &&
+//                    (y + height) > laserList.get(i).y) {
+//                System.out.println("Here at x " + laserList.get(i).x + " and hero X : " + x);
+//                System.out.println("Here at Y " + laserList.get(i).y + " and hero x : " + y);
+//                return true;
+//            }
+//        }
         for (int i = 0; i < laserList.size(); i++) {
-            if (x <= laserList.get(i).x &&
-                    y <= laserList.get(i).y &&
-                    (x + width) > laserList.get(i).x &&
-                    (y + height) > laserList.get(i).y) {
-                return true;
-            }
+            laserList.get(i).collision(x,y);
         }
+
         return false;
     }
 
