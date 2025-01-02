@@ -5,40 +5,41 @@ import java.awt.*;
 
 public class Ai {
 
-    Image happy;
-    Image shocked;
-    Image worried;
+    Image star;
+
     int x;
     int y;
-    int velX = 0;
-    int velY = 0;
+    int xDir;
+    int yDir;
 
-    Ai(int x, int y){
+    Ai(int x, int y, Image star){
         this.x = x;
         this.y = y;
+        this.star = star;
 
-        happy = new ImageIcon("characters/enemy/ai/ai_3.png").getImage();
-        shocked = new ImageIcon("characters/hero/shocked_hero.png").getImage();
-        worried = new ImageIcon("characters/hero/worried_hero.png").getImage();
 
     }
 
     public void draw(Graphics2D g2d){
-        g2d.drawImage(happy, x, y, null);
+        g2d.drawImage(star, x, y, null);
     }
 
     public void follow(int heroX, int heroY) {
         if (heroX > x) {
             x += 1;
+            xDir = -1;
         }
         if (heroX < x) {
             x -= 1;
+            xDir = 1;
         }
         if (heroY > y) {
             y += 1;
+            yDir = -1;
         }
         if (heroY < y) {
             y -= 1;
+            yDir = 1;
         }
     }
 }
