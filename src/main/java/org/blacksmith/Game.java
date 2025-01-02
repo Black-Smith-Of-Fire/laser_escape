@@ -26,6 +26,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     Random randomDir = new Random();
     int randomX = randomDir.nextInt(2);
+    int healthScore = 100;
+    int healthWidth = 500;
 
 
 //    int push = 50;
@@ -119,9 +121,17 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     }
 
+    public void healthBar(Graphics2D g){
+        g.setColor(Color.green);
+        g.fillRect(30,30,healthWidth,50);
+        g.setColor(Color.white);
+        g.setFont(new Font("Arial", Font.PLAIN, 30));
+        g.drawString(healthScore + " %",560,65);
+    }
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
+        healthBar((Graphics2D) g);
         hero.draw((Graphics2D) g);
         ai.draw((Graphics2D) g);
         Strings((Graphics2D) g);
