@@ -50,19 +50,19 @@ public class Lasers{
 
     public void wallCollision(){
         if (x <= 0) {
-            velX +=  5;
+            velX +=  2;
         }
 
         if (y <= 0) {
-            velY += 5;
+            velY += 2;
         }
 
         if (x >= boardWidth) {
-            velX -=  5;
+            velX -=  2;
         }
 
         if (y >= boardHeight) {
-            velY -= 5;
+            velY -= 2;
         }
         x += velX;
         y += velY;
