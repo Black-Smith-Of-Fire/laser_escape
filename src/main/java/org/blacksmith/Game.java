@@ -3,13 +3,15 @@ package org.blacksmith;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 
 public class Game extends JPanel implements ActionListener, KeyListener {
 
     MultipleLasers multipleLasers;
-    MultipleLasers lol;
+    ArrayList<MultipleLasers> newLasers;
+//    MultipleLasers lol;
     Hero hero;
     MultipleAi ai;
 
@@ -26,8 +28,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     int randomX = randomDir.nextInt(2);
 
 
-    Random random = new Random();
-//    int push = random.nextInt(0, 1750);
 //    int push = 50;
 //    int laserPosX = push;
 
@@ -49,13 +49,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         ai = new MultipleAi(aiPosX, aiPosY);
         hero = new Hero(heroPosX, heroPosY);
         multipleLasers = new MultipleLasers(10,90,1);
-        lol = new MultipleLasers(1500,0, -1);
+        newLasers = new ArrayList<>();
         score = 0;
 
-//        lasers = new Lasers(laserPosX, laserPosY);
-
         this.setBackground(Color.black);
-//        paintComponents(getGraphics());
 
         JFrame jFrame = new JFrame();
         jFrame.addKeyListener(this);
@@ -76,6 +73,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 score ++;
+                if (score % 100 == 0) {
+                    newLasers.add(new MultipleLasers(new RandomPos().push,0,new RandomPos().dir));
+                }
             }
         });
         scoreLoop.start();
@@ -97,15 +97,18 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 //                    laserLoop.stop();
 //                }
 
-                if (!lol.collision(hero.x, hero.y)) {
-                    int push = 0;
-                    if (push != 1){
-                        lol.push();
+                for (int i = 0; i < newLasers.size(); i++) {
+
+                if (!newLasers.get(i).collision(hero.x, hero.y)) {
+                    int lol = 0;
+                    if (lol != 1){
+                        newLasers.get(i).push();
                     }
-                    push ++;
-                    lol.move();
+                    lol ++;
+                    newLasers.get(i).move();
                 }
 
+                }
                 repaint();
             }
         });
@@ -123,7 +126,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         ai.draw((Graphics2D) g);
         Strings((Graphics2D) g);
         multipleLasers.draw((Graphics2D) g);
-        lol.draw((Graphics2D) g);
+        for (int i = 0; i < newLasers.size(); i++) {
+            newLasers.get(i).draw((Graphics2D) g);
+        }
+//        lol.draw((Graphics2D) g);
     }
 
     public void Strings(Graphics2D g2d){
