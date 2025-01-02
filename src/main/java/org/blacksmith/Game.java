@@ -136,7 +136,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         hero.move();
-        ai.follow(hero.x, hero.y);
+        if (!ai.collision(hero.x, hero.y)) {
+            ai.follow(hero.x, hero.y);
+        }
         repaint();
     }
 
