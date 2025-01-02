@@ -36,6 +36,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     Timer timer;
     Timer laserLoop;
     Timer scoreLoop;
+    Timer healthLoop;
 
     int score;
 
@@ -82,35 +83,56 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         });
         scoreLoop.start();
 
+        healthLoop = new Timer(800, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int deduct = 0;
+                int scoreDeduct = 0;
+
+                if (multipleLasers.collision(hero.x, hero.y)) {
+                    deduct = -50;
+                    scoreDeduct = -10;
+                }
+                else {
+                    deduct = 0;
+                    scoreDeduct = 0;
+                }
+                healthWidth += deduct;
+                healthScore += scoreDeduct;
+
+                for (int i = 0; i < newLasers.size(); i++) {
+                if (newLasers.get(i).collision(hero.x, hero.y)) {
+                    deduct = -50;
+                    scoreDeduct = -10;
+                }
+                else {
+                        deduct = 0;
+                    scoreDeduct = 0;
+                    }
+                }
+
+                healthWidth += deduct;
+                healthScore += scoreDeduct;
+
+
+            }
+        });
+        healthLoop.start();
+
         laserLoop = new Timer(5, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!multipleLasers.collision(hero.x, hero.y)) {
-                    int push = 0;
-                    if (push != 1){
+                    boolean push = true;
+                    if (push ){
                         multipleLasers.push();
+                        for (int i = 0; i < newLasers.size(); i++) {
+                            newLasers.get(i).push();
+                            newLasers.get(i).move();
+                        }
                     }
-                    push ++;
+                    push = false;
                     multipleLasers.move();
-                }
-//                else {
-//                    timer.stop();
-//                    scoreLoop.stop();
-//                    laserLoop.stop();
-//                }
 
-                for (int i = 0; i < newLasers.size(); i++) {
-
-                if (!newLasers.get(i).collision(hero.x, hero.y)) {
-                    int lol = 0;
-                    if (lol != 1){
-                        newLasers.get(i).push();
-                    }
-                    lol ++;
-                    newLasers.get(i).move();
-                }
-
-                }
                 repaint();
             }
         });
