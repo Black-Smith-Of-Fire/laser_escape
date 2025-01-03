@@ -95,6 +95,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 int deduct = 0;
                 int scoreDeduct = 0;
 
+
                 for (int i = 0; i < newLasers.size(); i++) {
                 if (newLasers.get(i).collision(hero.x, hero.y)) {
                     deduct = -50;
