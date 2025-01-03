@@ -64,6 +64,17 @@ public class MultipleLasers {
         }).start();
     }
 
+    public  boolean crossedOver(int x, int y){
+        for (int i = 0; i < laserList.size(); i++) {
+            if (collision(x, y)){
+                if (!collision(x,y)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void movey(){
             laserList.get(0).move();
 
