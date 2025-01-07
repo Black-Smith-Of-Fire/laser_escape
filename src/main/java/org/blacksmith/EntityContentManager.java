@@ -36,8 +36,12 @@ public class EntityContentManager {
         return hero;
     }
 
-    public List<EnemyEntity> getEnemies() {
-        return enemies;
+    public void addEnemy(EnemyEntity enemy) {
+        enemies.add(enemy);
+    }
+
+    public void killEnemy(EnemyEntity enemy) {
+        enemies.remove(enemy);
     }
 
     public GameEntity getGame() {
@@ -45,6 +49,8 @@ public class EntityContentManager {
     }
 
     public void tick() {
+        System.out.println ("ecm tick");
+
         hero.tick();
         for (EnemyEntity enemy: enemies) {
             enemy.tick();

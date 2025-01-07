@@ -1,20 +1,11 @@
 package org.blacksmith;
 
-import org.blacksmith.entitytypes.CollisionEntity;
-import org.blacksmith.entitytypes.HeroEntity;
-import org.blacksmith.entitytypes.OnScreenEntity;
+import org.blacksmith.entitytypes.*;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Ai extends CollisionEntity {
-
-    int xDir;
-    int yDir;
-    int width = 179;
-    int height = 128;
-    int deduct = 0;
-    int scoreDeduct = 0;
+public class Ai extends EnemyEntity {
 
     Ai(int x, int y, Image star){
         setX(x);
@@ -23,31 +14,30 @@ public class Ai extends CollisionEntity {
     }
 
     public void tick() {
-        HeroEntity hero = EntityContentManager.getInstance().getHero();
+        EntityContentManager ecm = EntityContentManager.getInstance();
+        HeroEntity hero = ecm.getHero();
         if (collidesWith(hero)) {
-            deduct = -50;
-            scoreDeduct = -10;
+            GameEntity game = ecm.getGame();
+            game.setScore(game.getScore()-50);
+            hero.setHealthPercent(hero.getHealthPercent()-50); // todo - there should be logic so that different hits can be different damage
         }
 
         follow(hero);
+        move();
     }
 
     public void follow(HeroEntity hero) {
         if (hero.getX() > x) {
-            x += 1;
-            xDir = -1;
+            setVelocityX(1);
         }
         if (hero.getX() < x) {
-            x -= 1;
-            xDir = 1;
+            setVelocityX(-1);
         }
         if (hero.getY() > y) {
-            y += 1;
-            yDir = -1;
+            setVelocityY(1);
         }
         if (hero.getY() < y) {
-            y -= 1;
-            yDir = 1;
+            setVelocityY(-1);
         }
     }
 

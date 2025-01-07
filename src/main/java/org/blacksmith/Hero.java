@@ -16,7 +16,7 @@ public class Hero extends HeroEntity {
     int velX = 0;
     int velY = 0;
 
-    Hero(int x, int y){
+    Hero(int x, int y) {
         this.x = x;
         this.y = y;
 
@@ -30,7 +30,7 @@ public class Hero extends HeroEntity {
         setImage(happy);
     }
 
-    public void move(){
+    public void move() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -39,7 +39,7 @@ public class Hero extends HeroEntity {
         }).start();
     }
 
-    public void wallCollision(){
+    public void wallCollision() {
         if (x <= boardWidth && x >= 0) {
             x += velX;
         } else if (x <= 0) {
@@ -57,5 +57,7 @@ public class Hero extends HeroEntity {
         }
     }
 
-    public void tick() {} // todo
+    public void tick() {
+        move();
+    }
 }

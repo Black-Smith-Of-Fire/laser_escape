@@ -6,10 +6,7 @@ public class GameEntity extends OnScreenEntity {
     int score;
     int maxScore = 100;
 
-
-    int healthPercent;
     int healthWidth;
-
     public GameEntity() {
         score = 0;
         healthPercent = 100;

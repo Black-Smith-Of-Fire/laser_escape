@@ -14,19 +14,17 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     EntityContentManager ecm;
 
     ArrayList<MultipleLasers> newLasers;
-    ArrayList<MultipleAi> ai;
 
     int laserPosX;
     int laserPosY;
 
-    int aiPosX;
-    int aiPosY;
-
     Random randomDir = new Random();
     int randomX = randomDir.nextInt(2);
-    int healthScore = 100;
-    int healthWidth = 500;
     boolean gameOver = false;
+
+    int aiStartX = 190;
+    int aiStartY = 1000;
+
 
 
 //    int push = 50;
@@ -43,13 +41,14 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         ecm = EntityContentManager.getInstance();
 
+        HeroEntity hero = ecm.getHero();
+        hero.setX(aiStartX);
+        hero.setY(aiStartY);
+
         laserPosX = 500;
         laserPosY = 0;
 
-        aiPosX = 190;
-        aiPosY = 1000;
         newLasers = new ArrayList<>();
-        ai = new ArrayList<>();
         score = 0;
 
         this.setBackground(Color.black);
@@ -66,7 +65,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         jFrame.setVisible(true);
 
 
-        timer = new Timer(10,this);
+        timer = new Timer(1,this);
         timer.start();
 
         scoreLoop = new Timer(180, new ActionListener() {
@@ -77,10 +76,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                     newLasers.add(new MultipleLasers(new RandomPos().push,0,new RandomPos().dir));
                 }
                 if (score % 100 == 0) {
-                    newLasers.add(new MultipleLasers(new RandomPos().push, aiPosY, new RandomPos().dir));
+                    newLasers.add(new MultipleLasers(new RandomPos().push, aiStartY, new RandomPos().dir));
                 }
                 if (score % 200 == 0) {
-                    ai.add(new MultipleAi(new RandomPos().push,aiPosY));
+                    ecm.addEnemy(new Ai(new RandomPos().push, aiStartY, new ImageIcon("characters/enemy/ai/ai_3.png").getImage()));
                 }
             }
         });
@@ -106,26 +105,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                     }
                 }
 
-                healthWidth += deduct;
-                healthScore += scoreDeduct;
+                ecm.getGame().setScore(ecm.getGame().getScore()+deduct);
 
-                for (int i = 0; i < ai.size(); i++) {
-                    if (ai.get(i).collision(hero)) {
-                        deduct = -50;
-                        scoreDeduct = -10;
-                    }
-                    else {
-                        deduct = 0;
-                        scoreDeduct = 0;
-                    }
-                    healthWidth += deduct;
-                    healthScore += scoreDeduct;
-                    System.out.println("Width is : " + healthWidth);
-                    System.out.println("Score is : " + healthScore);
-                }
-
-
-                if (healthScore < 0) {
+                if (ecm.getGame().getScore() <= 0) {
                     healthLoop.stop();
                     laserLoop.stop();
                     scoreLoop.stop();
@@ -158,16 +140,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     }
 
-    public void healthBar(Graphics2D g){
-        g.setColor(Color.green);
-        g.fillRect(30,30,healthWidth,50);
-        g.setColor(Color.white);
-        g.setFont(new Font("Arial", Font.PLAIN, 30));
-        g.drawString(healthScore + " %",560,65);
-        if (gameOver) {
-            g.drawString(0 + " %",0,65);
-        }
-    }
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -175,9 +147,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         ecm.draw((Graphics2D) g);
 
         // TODO: we'll get rid of these when the migration to the ECM is done
-        for (int i = 0; i < ai.size(); i++) {
-            ai.get(i).draw((Graphics2D) g);
-        }
         Strings((Graphics2D) g);
         for (int i = 0; i < newLasers.size(); i++) {
             newLasers.get(i).draw((Graphics2D) g);
@@ -194,8 +163,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println ("Action performed");
         ecm.tick();
         repaint();
+        System.out.println ("Action performed done");
     }
 
     @Override

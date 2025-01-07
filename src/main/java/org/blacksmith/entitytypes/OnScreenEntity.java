@@ -12,6 +12,8 @@ public abstract class OnScreenEntity extends Entity {
     int velocityX;
     int velocityY;
 
+    int healthPercent;
+
     public int getX() {
         return x;
     }
@@ -58,6 +60,14 @@ public abstract class OnScreenEntity extends Entity {
 
     public void setVelocityX(int velocityX) {
         this.velocityX = velocityX;
+    }
+
+    public int getHealthPercent() {
+        return healthPercent;
+    }
+
+    public void setHealthPercent(int healthPercent) {
+        this.healthPercent = healthPercent;
     }
 
     public int scaleX(float virtualWidth, int screenWidth) {
