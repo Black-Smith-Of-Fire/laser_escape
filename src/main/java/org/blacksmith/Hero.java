@@ -1,16 +1,16 @@
 package org.blacksmith;
 
+import org.blacksmith.entitytypes.HeroEntity;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Hero {
+public class Hero extends HeroEntity {
 
     Image happy;
     Image shocked;
     Image worried;
-    int x;
-    int y;
     int boardWidth;
     int boardHeight;
     int velX = 0;
@@ -59,4 +59,6 @@ public class Hero {
             y -= 1;
         }
     }
+
+    public void paint() {} // todo
 }
