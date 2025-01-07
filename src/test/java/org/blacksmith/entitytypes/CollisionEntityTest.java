@@ -5,13 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class ConcreteCollisionEntity extends CollisionEntity {
-
     @Override
-    public void paint() {
-
-    }
-
+    public void tick(){}
 }
+
 public class CollisionEntityTest {
 
     @Test

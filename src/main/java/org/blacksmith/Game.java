@@ -1,5 +1,7 @@
 package org.blacksmith;
 
+import org.blacksmith.entitytypes.HeroEntity;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,14 +11,10 @@ import java.util.Random;
 
 public class Game extends JPanel implements ActionListener, KeyListener {
 
+    EntityContentManager ecm;
+
     ArrayList<MultipleLasers> newLasers;
     ArrayList<MultipleAi> ai;
-
-    Hero hero;
-
-
-    int heroPosX;
-    int heroPosY;
 
     int laserPosX;
     int laserPosY;
@@ -42,15 +40,14 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     int score;
 
     Game(){
+
+        ecm = EntityContentManager.getInstance();
+
         laserPosX = 500;
         laserPosY = 0;
 
-        heroPosX = 500;
-        heroPosY = 500;
-
         aiPosX = 190;
         aiPosY = 1000;
-        hero = new Hero(heroPosX, heroPosY);
         newLasers = new ArrayList<>();
         ai = new ArrayList<>();
         score = 0;
@@ -92,6 +89,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         healthLoop = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                HeroEntity hero = ecm.getHero();
                 int deduct = 0;
                 int scoreDeduct = 0;
 
@@ -111,7 +110,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 healthScore += scoreDeduct;
 
                 for (int i = 0; i < ai.size(); i++) {
-                    if (ai.get(i).collision(hero.x, hero.y)) {
+                    if (ai.get(i).collision(hero)) {
                         deduct = -50;
                         scoreDeduct = -10;
                     }
@@ -172,8 +171,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        healthBar((Graphics2D) g);
-        hero.draw((Graphics2D) g);
+
+        ecm.draw((Graphics2D) g);
+
+        // TODO: we'll get rid of these when the migration to the ECM is done
         for (int i = 0; i < ai.size(); i++) {
             ai.get(i).draw((Graphics2D) g);
         }
@@ -193,10 +194,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        hero.move();
-        for (int i = 0; i < ai.size(); i++) {
-            ai.get(i).follow(hero.x,hero.y);
-        }
+        ecm.tick();
         repaint();
     }
 
@@ -206,32 +204,32 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP){
-            hero.velY = -2;
+            ecm.getHero().setVelocityY(-2);
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN){
-            hero.velY = 2;
+            ecm.getHero().setVelocityY(2);
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT){
-            hero.velX = -2;
+            ecm.getHero().setVelocityX(-2);
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-            hero.velX = 2;
+            ecm.getHero().setVelocityX(2);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP){
-            hero.velY = 0;
+            ecm.getHero().setVelocityY(0);
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN){
-            hero.velY = 0;
+            ecm.getHero().setVelocityY(0);
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT){
-            hero.velX = 0;
+            ecm.getHero().setVelocityX(0);
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-            hero.velX = 0;
+            ecm.getHero().setVelocityX(0);
         }
     }
 }

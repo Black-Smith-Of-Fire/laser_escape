@@ -27,10 +27,7 @@ public class Hero extends HeroEntity {
         shocked = new ImageIcon("characters/hero/shocked_hero.png").getImage();
         worried = new ImageIcon("characters/hero/worried_hero.png").getImage();
 
-    }
-
-    public void draw(Graphics2D g2d){
-        g2d.drawImage(happy, x, y, null);
+        setImage(happy);
     }
 
     public void move(){
@@ -60,5 +57,5 @@ public class Hero extends HeroEntity {
         }
     }
 
-    public void paint() {} // todo
+    public void tick() {} // todo
 }

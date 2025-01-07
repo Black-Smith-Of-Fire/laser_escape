@@ -1,5 +1,7 @@
 package org.blacksmith;
 
+import org.blacksmith.entitytypes.HeroEntity;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class MultipleAi {
 
 
 
-    public boolean collision(int x, int y){
+    public boolean collision(HeroEntity hero){
 //        for (int i = 0; i < laserList.size(); i++) {
 //            if (laserList.get(i).x >= x &&
 //                    laserList.get(i).y >= y &&
@@ -40,15 +42,15 @@ public class MultipleAi {
 //            }
 //        }
         for (int i = 0; i < laserList.size(); i++) {
-            laserList.get(i).collision(x,y);
+            laserList.get(i).collidesWith(hero);
         }
 
         return false;
     }
 
 
-    public void follow(int x, int y){
-        laserList.get(0).follow(x, y);
+    public void follow(HeroEntity hero){
+        laserList.get(0).follow(hero);
         for (int i = 1; i < laserList.size(); i++) {
 
         if (laserList.get(i - 1).x > laserList.get(i).x + 14) {

@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConcreteOnScreenEntity extends OnScreenEntity {
-    @Override
-    public void paint() {}
+    public void tick(){}
 }
+
 public class OnScreenEntityTest {
 
     @Test

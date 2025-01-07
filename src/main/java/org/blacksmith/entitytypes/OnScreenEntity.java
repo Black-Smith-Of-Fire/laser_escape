@@ -1,9 +1,16 @@
 package org.blacksmith.entitytypes;
 
-public abstract class OnScreenEntity {
+import java.awt.*;
+
+public abstract class OnScreenEntity extends Entity {
     public int x, y;
 
+    Image image;
+
     int width, height;
+
+    int velocityX;
+    int velocityY;
 
     public int getX() {
         return x;
@@ -37,6 +44,22 @@ public abstract class OnScreenEntity {
         this.height = height;
     }
 
+    public int getVelocityY() {
+        return velocityY;
+    }
+
+    public void setVelocityY(int velocityY) {
+        this.velocityY = velocityY;
+    }
+
+    public int getVelocityX() {
+        return velocityX;
+    }
+
+    public void setVelocityX(int velocityX) {
+        this.velocityX = velocityX;
+    }
+
     public int scaleX(float virtualWidth, int screenWidth) {
         float scaled = (x/virtualWidth)*screenWidth;
 
@@ -48,5 +71,16 @@ public abstract class OnScreenEntity {
         return Math.round(scaled);
     }
 
-    public abstract void paint();
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public void move() {
+        setX(getX()+velocityX);
+        setY(getY()+velocityY);
+    }
+
+    public void draw(Graphics2D g2d) {
+        g2d.drawImage(image, x, y, null);
+    };
 }
