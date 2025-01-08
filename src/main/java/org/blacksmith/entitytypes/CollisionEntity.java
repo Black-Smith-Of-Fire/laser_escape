@@ -2,9 +2,8 @@ package org.blacksmith.entitytypes;
 
 public abstract class CollisionEntity extends OnScreenEntity {
 
-    float width, height;
-
     public boolean collidesWith(CollisionEntity other) {
+        //System.out.println (getX()+"x"+getY()+"+"+getWidth()+"x"+getHeight()+" vs "+other.getX()+"x"+other.getY()+"+"+other.getWidth()+"x"+ other.getHeight());
         // Check if this's X is within other's X
         // and this's Y is within other's Y
         if ((getX() >= other.getX()) &&

@@ -1,5 +1,7 @@
 package org.blacksmith;
 
+import org.blacksmith.components.Animator;
+import org.blacksmith.components.SingleImageAnimator;
 import org.blacksmith.entitytypes.EnemyEntity;
 
 import javax.swing.*;
@@ -19,10 +21,10 @@ public class Lasers extends EnemyEntity {
 
     ArrayList<Items> laserList;
 
-    Lasers(int x, int y, Image star){
+    Lasers(int x, int y, Animator animator){
         setX(x);
         setY(y);
-        setImage(star);
+        setAnimator(animator);
 
         laserList = new ArrayList<>();
         laserList.add(new Items(x,y));

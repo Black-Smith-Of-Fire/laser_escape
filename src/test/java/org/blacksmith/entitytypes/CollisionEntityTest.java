@@ -1,6 +1,10 @@
 package org.blacksmith.entitytypes;
 
+import org.blacksmith.components.Animator;
 import org.junit.jupiter.api.Test;
+
+import java.awt.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -11,6 +15,22 @@ class ConcreteCollisionEntity extends CollisionEntity {
 
 public class CollisionEntityTest {
 
+    class TestAnimator implements Animator {
+        @Override
+        public Image getImage() {
+            return null;
+        }
+
+        @Override
+        public int getWidth() {
+            return 10;
+        }
+
+        @Override
+        public int getHeight() {
+            return 10;
+        }
+    }
     @Test
     public void testOverlapCollision() {
         ConcreteCollisionEntity entity1 = new ConcreteCollisionEntity();
@@ -18,13 +38,11 @@ public class CollisionEntityTest {
 
         entity1.setX(0);
         entity1.setY(0);
-        entity1.setWidth(10);
-        entity1.setHeight(10);
+        entity1.setAnimator(new TestAnimator());
 
         entity2.setX(2);
         entity2.setY(2);
-        entity2.setWidth(10);
-        entity2.setHeight(10);
+        entity2.setAnimator(new TestAnimator());
 
         assertTrue(entity1.collidesWith(entity2));
     }
@@ -36,13 +54,11 @@ public class CollisionEntityTest {
 
         entity1.setX(0);
         entity1.setY(0);
-        entity1.setWidth(10);
-        entity1.setHeight(10);
+        entity1.setAnimator(new TestAnimator());
 
         entity2.setX(2);
         entity2.setY(2);
-        entity2.setWidth(2);
-        entity2.setHeight(2);
+        entity2.setAnimator(new TestAnimator());
 
         assertTrue(entity1.collidesWith(entity2));
     }
@@ -54,13 +70,11 @@ public class CollisionEntityTest {
 
         entity1.setX(0);
         entity1.setY(0);
-        entity1.setWidth(10);
-        entity1.setHeight(10);
+        entity1.setAnimator(new TestAnimator());
 
         entity2.setX(2);
         entity2.setY(2);
-        entity2.setWidth(2);
-        entity2.setHeight(2);
+        entity2.setAnimator(new TestAnimator());
 
         assertTrue(entity2.collidesWith(entity1));
     }
@@ -72,13 +86,11 @@ public class CollisionEntityTest {
 
         entity1.setX(0);
         entity1.setY(0);
-        entity1.setWidth(10);
-        entity1.setHeight(10);
+        entity1.setAnimator(new TestAnimator());
 
         entity2.setX(20);
         entity2.setY(20);
-        entity2.setWidth(2);
-        entity2.setHeight(2);
+        entity2.setAnimator(new TestAnimator());
 
         assertFalse(entity1.collidesWith(entity2));
     }
@@ -89,8 +101,7 @@ public class CollisionEntityTest {
 
         entity1.setX(0);
         entity1.setY(0);
-        entity1.setWidth(10);
-        entity1.setHeight(10);
+        entity1.setAnimator(new TestAnimator());
 
         assertTrue(entity1.collidesWith(entity1));
     }

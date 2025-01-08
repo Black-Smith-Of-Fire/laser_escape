@@ -1,15 +1,14 @@
 package org.blacksmith.entitytypes;
 
 import org.blacksmith.EntityContentManager;
+import org.blacksmith.components.Animator;
 
 import java.awt.*;
 
 public abstract class OnScreenEntity extends Entity {
+    Animator animator;
+
     public int x, y;
-
-    Image image;
-
-    int width, height;
 
     int velocityX;
     int velocityY;
@@ -33,19 +32,18 @@ public abstract class OnScreenEntity extends Entity {
     }
 
     public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
+        if (animator == null) {
+            return 0;
+        }
+        return animator.getWidth();
     }
 
     public int getHeight() {
-        return height;
-    }
+        if (animator == null) {
+            return 0;
+        }
 
-    public void setHeight(int height) {
-        this.height = height;
+        return animator.getHeight();
     }
 
     public int getVelocityY() {
@@ -83,10 +81,6 @@ public abstract class OnScreenEntity extends Entity {
         return Math.round(scaled);
     }
 
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
     public void move() {
         wallCollision();
         setX(getX()+velocityX);
@@ -112,9 +106,16 @@ public abstract class OnScreenEntity extends Entity {
         }
     }
 
+    public Animator getAnimator() {
+        return animator;
+    }
+
+    public void setAnimator(Animator animator) {
+        this.animator = animator;
+    }
 
 
     public void draw(Graphics2D g2d) {
-        g2d.drawImage(image, x, y, null);
+        g2d.drawImage(animator.getImage(), x, y, null);
     };
 }

@@ -1,5 +1,6 @@
 package org.blacksmith;
 
+import org.blacksmith.components.SingleImageAnimator;
 import org.blacksmith.entitytypes.*;
 
 import javax.swing.*;
@@ -7,13 +8,16 @@ import java.awt.*;
 
 public class Ai extends EnemyEntity {
 
-    Ai(int x, int y, Image star){
+    Ai(int x, int y){
         setX(x);
         setY(y);
-        setImage(star);
+        Image star = new ImageIcon("characters/enemy/ai/ai_3.png").getImage();
+        setAnimator(new SingleImageAnimator(star));
     }
 
+    @Override
     public void tick() {
+        System.out.println("Ai tick");
         EntityContentManager ecm = EntityContentManager.getInstance();
         HeroEntity hero = ecm.getHero();
         if (collidesWith(hero)) {
