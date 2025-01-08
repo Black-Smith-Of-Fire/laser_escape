@@ -7,6 +7,10 @@ public class GameEntity extends OnScreenEntity {
     int maxScore = 100;
 
     int healthWidth;
+
+    int boardWidth;
+    int boardHeight;
+
     public GameEntity() {
         score = 0;
         healthPercent = 100;
@@ -19,6 +23,22 @@ public class GameEntity extends OnScreenEntity {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public int getBoardWidth() {
+        return boardWidth;
+    }
+
+    public void setBoardWidth(int boardWidth) {
+        this.boardWidth = boardWidth;
+    }
+
+    public int getBoardHeight() {
+        return boardHeight;
+    }
+
+    public void setBoardHeight(int boardHeight) {
+        this.boardHeight = boardHeight;
     }
 
     public void tick() {

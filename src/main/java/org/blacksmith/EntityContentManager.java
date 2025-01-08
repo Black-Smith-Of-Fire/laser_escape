@@ -49,8 +49,6 @@ public class EntityContentManager {
     }
 
     public void tick() {
-        System.out.println ("ecm tick");
-
         hero.tick();
         for (EnemyEntity enemy: enemies) {
             enemy.tick();

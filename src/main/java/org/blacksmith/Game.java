@@ -1,5 +1,6 @@
 package org.blacksmith;
 
+import org.blacksmith.entitytypes.GameEntity;
 import org.blacksmith.entitytypes.HeroEntity;
 
 import javax.swing.*;
@@ -37,9 +38,17 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     int score;
 
+    int boardWidth = 1750;
+    int boardHeight = 940;
+
+
     Game(){
 
         ecm = EntityContentManager.getInstance();
+
+        GameEntity game = ecm.getGame();
+        game.setBoardWidth(boardWidth);
+        game.setBoardHeight(boardHeight);
 
         HeroEntity hero = ecm.getHero();
         hero.setX(aiStartX);
@@ -65,7 +74,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         jFrame.setVisible(true);
 
 
-        timer = new Timer(1,this);
+        timer = new Timer(10,this);
         timer.start();
 
         scoreLoop = new Timer(180, new ActionListener() {
@@ -107,7 +116,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
                 ecm.getGame().setScore(ecm.getGame().getScore()+deduct);
 
-                if (ecm.getGame().getScore() <= 0) {
+                if (ecm.getGame().getHealthPercent() <= 0) {
                     healthLoop.stop();
                     laserLoop.stop();
                     scoreLoop.stop();
@@ -163,10 +172,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println ("Action performed");
         ecm.tick();
         repaint();
-        System.out.println ("Action performed done");
     }
 
     @Override

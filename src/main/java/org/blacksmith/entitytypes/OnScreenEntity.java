@@ -1,5 +1,7 @@
 package org.blacksmith.entitytypes;
 
+import org.blacksmith.EntityContentManager;
+
 import java.awt.*;
 
 public abstract class OnScreenEntity extends Entity {
@@ -86,9 +88,31 @@ public abstract class OnScreenEntity extends Entity {
     }
 
     public void move() {
+        wallCollision();
         setX(getX()+velocityX);
         setY(getY()+velocityY);
     }
+
+    void wallCollision() {
+        GameEntity game = EntityContentManager.getInstance().getGame();
+        int boardWidth = game.getBoardWidth();
+        int boardHeight = game.getBoardHeight();
+
+        if (x<=0) {
+            setX(5);
+        }
+        if (x>= boardWidth) {
+            setX(boardWidth-5);
+        }
+        if (y<=0) {
+            setY(5);
+        }
+        if (y>=boardHeight) {
+            setY(boardHeight-5);
+        }
+    }
+
+
 
     public void draw(Graphics2D g2d) {
         g2d.drawImage(image, x, y, null);
