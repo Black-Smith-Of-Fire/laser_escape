@@ -1,6 +1,7 @@
 package org.blacksmith;
 
 import org.blacksmith.components.Animator;
+import org.blacksmith.components.ScaledImageAnimator;
 import org.blacksmith.components.SingleImageAnimator;
 import org.blacksmith.entitytypes.EnemyEntity;
 import org.blacksmith.entitytypes.GameEntity;
@@ -24,7 +25,8 @@ public class MultipleLasers extends EnemyEntity {
         Animator animator = new SingleImageAnimator(star);
         laserList.add(new Lasers(x, y, animator));
         for (int i = 1; i < 9; i++) {
-            laserList.add(new Lasers(laserList.get(i-1).x + (dir * 14),laserList.get(i-1).y + 13, animator)); //
+            Animator scaledAnimator = new ScaledImageAnimator(star, 1f/(i+1));
+            laserList.add(new Lasers(laserList.get(i-1).x + (dir * 14),laserList.get(i-1).y + 13, scaledAnimator)); //
         }
     }
 
