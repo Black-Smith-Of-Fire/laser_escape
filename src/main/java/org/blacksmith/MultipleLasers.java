@@ -1,10 +1,17 @@
 package org.blacksmith;
 
+import org.blacksmith.components.Animator;
+import org.blacksmith.components.ScaledImageAnimator;
+import org.blacksmith.components.SingleImageAnimator;
+import org.blacksmith.entitytypes.EnemyEntity;
+import org.blacksmith.entitytypes.GameEntity;
+import org.blacksmith.entitytypes.HeroEntity;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class MultipleLasers {
+public class MultipleLasers extends EnemyEntity {
     ArrayList<Lasers> laserList;
     Image star;
     int dir;
@@ -14,13 +21,14 @@ public class MultipleLasers {
     MultipleLasers(int x, int y, int dir){
         this.dir = dir;
         laserList = new ArrayList<>();
-        laserList.add(new Lasers(x, y, new ImageIcon("characters/enemy/starRed/redRect0.png").getImage()));
+        star = new ImageIcon("characters/enemy/starRed/redRect0.png").getImage();
+        Animator animator = new SingleImageAnimator(star);
+        laserList.add(new Lasers(x, y, animator));
         for (int i = 1; i < 9; i++) {
-            star = new ImageIcon("characters/enemy/starRed/redRect" + i + ".png").getImage();
-            laserList.add(new Lasers(laserList.get(i-1).x + (dir * 14),laserList.get(i-1).y + 13, star)); //
+            Animator scaledAnimator = new ScaledImageAnimator(star, 1f/(i+1));
+            laserList.add(new Lasers(laserList.get(i-1).x + (dir * 14),laserList.get(i-1).y + 13, scaledAnimator)); //
         }
     }
-
 
     public void draw(Graphics2D g2d){
         for (int i = 0; i < laserList.size(); i++) {
@@ -64,17 +72,6 @@ public class MultipleLasers {
         }).start();
     }
 
-    public  boolean crossedOver(int x, int y){
-        for (int i = 0; i < laserList.size(); i++) {
-            if (collision(x, y)){
-                if (!collision(x,y)){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public void movey(){
             laserList.get(0).move();
 
@@ -92,6 +89,21 @@ public class MultipleLasers {
                 laserList.get(i).y -= 2;
             }
         }
+        }
+
+        @Override
+        public void tick(){
+            EntityContentManager ecm = EntityContentManager.getInstance();
+            HeroEntity hero = ecm.getHero();
+            for (Lasers laser: laserList) {
+                if (laser.collidesWith(hero)) {
+                    System.out.println("Collision");
+                    GameEntity game = ecm.getGame();
+                    game.setScore(game.getScore() - 50);
+                    hero.setHealthPercent(hero.getHealthPercent() - 50);
+                }
+            }
+            move();
         }
     }
 

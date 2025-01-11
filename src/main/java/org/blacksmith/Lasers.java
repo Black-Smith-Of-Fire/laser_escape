@@ -1,13 +1,15 @@
 package org.blacksmith;
 
+import org.blacksmith.components.Animator;
+import org.blacksmith.components.SingleImageAnimator;
+import org.blacksmith.entitytypes.EnemyEntity;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Lasers{
+public class Lasers extends EnemyEntity {
 
-    int x;
-    int y;
     int width;
     int height;
 
@@ -17,13 +19,12 @@ public class Lasers{
     int boardWidth = 1860;
     int boardHeight = 1010;
 
-    Image star;
     ArrayList<Items> laserList;
 
-    Lasers(int x, int y, Image star){
-        this.x = x;
-        this.y = y;
-        this.star = star;
+    Lasers(int x, int y, Animator animator){
+        setX(x);
+        setY(y);
+        setAnimator(animator);
 
         laserList = new ArrayList<>();
         laserList.add(new Items(x,y));
@@ -34,10 +35,6 @@ public class Lasers{
         height = 26;
     }
 
-    public void draw(Graphics2D g2d){
-        g2d.drawImage(star, x, y, null);
-    }
-
     public void move(
     ){
         new Thread(new Runnable() {
@@ -46,6 +43,10 @@ public class Lasers{
                 wallCollision();
             }
         }).start();
+    }
+
+    public void tick() {
+        move();
     }
 
     public void wallCollision(){
