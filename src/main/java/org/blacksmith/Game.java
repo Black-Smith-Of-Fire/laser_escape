@@ -89,7 +89,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         });
         scoreLoop.start();
 
-        healthLoop = new Timer(10, new ActionListener() {
+        healthLoop = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int deduct = 0;
@@ -97,18 +97,21 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
 
                 for (int i = 0; i < newLasers.size(); i++) {
-                if (newLasers.get(i).collision(hero.x, hero.y)) {
-                    deduct = -50;
-                    scoreDeduct = -10;
-                }
-                else {
+                    if (newLasers.get(i).collision(hero.x, hero.y)) {
+                        deduct = -50;
+                        scoreDeduct = -10;
+                    }
+                    else {
                         deduct = 0;
-                    scoreDeduct = 0;
+                        scoreDeduct = 0;
                     }
                 }
 
-                healthWidth += deduct;
-                healthScore += scoreDeduct;
+                if (!(healthWidth + deduct < 0)) healthWidth += deduct;
+                else healthWidth = 0;
+
+                if (!(healthScore + scoreDeduct < 0)) healthScore += scoreDeduct;
+                else healthScore = 0;
 
                 for (int i = 0; i < ai.size(); i++) {
                     if (ai.get(i).collision(hero.x, hero.y)) {
