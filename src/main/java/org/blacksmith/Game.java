@@ -85,7 +85,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         });
         scoreLoop.start();
 
-        healthLoop = new Timer(10, new ActionListener() {
+        healthLoop = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
